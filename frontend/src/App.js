@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
 
+// Use the environment variable for the backend URL
+const backendUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 function App() {
   const [message, setMessage] = useState('');
 
   const testConnection = async () => {
     try {
-      const response = await fetch('http://localhost:5000/');
+      const response = await fetch(backendUrl);
       const text = await response.text();
       setMessage(text);
     } catch (error) {
