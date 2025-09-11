@@ -3,8 +3,12 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(express.json());
+// The URL of your Vercel frontend deployment
+const vercelFrontendURL = 'https://cadet-portal.vercel.app'; 
+
+app.use(cors({
+  origin: vercelFrontendURL
+}));
 
 // Define a simple test route
 app.get('/', (req, res) => {
