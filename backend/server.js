@@ -1,53 +1,80 @@
+// server.js
 const express = require('express');
 const cors = require('cors');
-const { Pool } = require('pg'); // Import the Pool class from pg
-const app = express();
-const PORT = process.env.PORT || 5000;
+const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
+const path = require('path');
+const { Pool } = require('pg');
 
-// Use a single environment variable for the database URL
-const dbConnectionString = process.env.DATABASE_URL;
+dotenv.config();
 
-// Create a new Pool instance for database connections
+// PostgreSQL connection pool using DATABASE_URL from Render
 const pool = new Pool({
-  connectionString: dbConnectionString,
+  connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+  },
 });
 
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://cadet-portal.vercel.app',
-  process.env.FRONTEND_URL,
-];
-
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-}));
-
-app.use(express.json());
-
-// Add a new test route to verify database connection
-app.get('/db-test', async (req, res) => {
+// Test the database connection
+(async () => {
   try {
-    const result = await pool.query('SELECT NOW()');
-    res.send(`Database connected! Current time: ${result.rows[0].now}`);
+    const client = await pool.connect();
+    console.log('✅ PostgreSQL connected');
+    client.release();
   } catch (err) {
-    res.status(500).send('Database connection failed.');
-    console.error(err);
+    console.error('❌ PostgreSQL connection error:', err);
+    process.exit(1);
   }
-});
+})();
 
-app.get('/', (req, res) => {
-  res.send('Backend is running!');
-});
+const app = express();
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Middleware
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || 'http://localhost:3000',
+    credentials: true,
+  })
+);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static('uploads'));
+
+// Main API routes
+app.use('/auth', require('./routes/auth'));
+app.use('/api/users', require('./routes/user'));
+app.use('/api/admin', require('./routes/admin'));
+app.use('/api/master', require('./routes/master'));
+app.use('/api/fallin', require('./routes/fallin'));
+app.use('/api/attendance', require('./routes/attendance'));
+app.use('/api/achievements', require('./routes/achievements'));
+app.use('/api/events', require('./routes/events'));
+app.use('/api/support-queries', require('./routes/supportQueries'));
+app.use('/api/change-password', require('./routes/changePassword'));
+
+// Admin-specific sub-routes
+app.use('/api/admin/manage-users', require('./routes/admin/manageUsers'));
+app.use('/api/admin/reports', require('./routes/admin/adminReports'));
+app.use('/api/admin/notifications', require('./routes/admin/notifications'));
+app.use('/api/admin/events', require('./routes/admin/events')); // Assuming this is an admin event management route
+
+// Master-specific sub-routes
+app.use('/api/master/manage-admins', require('./routes/master/manageAdmins'));
+app.use('/api/master/manage-users', require('./routes/master/manageUsers'));
+app.use('/api/master/notification-manager', require('./routes/master/notificationManager'));
+app.use('/api/master/platform-config', require('./routes/master/platformConfig'));
+app.use('/api/master/global-search', require('./routes/master/globalSearch'));
+app.use('/api/master/support-queries', require('./routes/master/supportQueries'));
+app.use('/api/master/system-logs', require('./routes/master/systemLogs'));
+app.use('/api/master/system-reports', require('./routes/master/systemReports'));
+app.use('/api/master/backup-restore', require('./routes/master/backupRestore'));
+
+// Root health check
+app.get('/', (req, res) => res.send('GITAM NCC API is live!'));
+
+// Start the server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
