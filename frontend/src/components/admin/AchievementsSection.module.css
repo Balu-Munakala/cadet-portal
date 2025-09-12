@@ -1,0 +1,210 @@
+/*
+ * Modern and responsive CSS for the Achievements Section.
+ * Designed for a clean, card-based layout with subtle visual effects.
+ */
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+}
+
+h2 {
+  color: #212529; /* Darker, more professional color */
+  font-size: 28px;
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.sectionTitle {
+  margin-top: 40px;
+  margin-bottom: 24px;
+  color: #212529;
+  font-size: 24px;
+  text-align: center;
+  font-weight: 600;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 12px;
+}
+
+.message {
+  margin: 0 auto 20px;
+  padding: 12px;
+  border-radius: 8px;
+  max-width: 800px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.error {
+  background-color: #fcecec;
+  color: #c0392b;
+}
+
+.success {
+  background-color: #e8f9f5;
+  color: #034d37;
+}
+
+.form {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #495057;
+}
+
+.field input[type="text"],
+.field textarea {
+  width: 100%;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field input[type="text"]:focus,
+.field textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.field input[type="file"] {
+  font-size: 16px;
+}
+
+.submitBtn {
+  background-color: #007bff; /* Primary button color */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
+}
+
+.submitBtn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.submitBtn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.cardImage {
+  width: 100%;
+  object-fit: cover;
+  height: 200px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .cardImage {
+  transform: scale(1.05);
+}
+
+.cardBody {
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: #343a40;
+}
+
+.cardDesc {
+  flex: 1;
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.cardDate {
+  font-size: 12px;
+  color: #adb5bd;
+  margin-top: auto;
+  font-style: italic;
+}
+
+.deleteBtn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  align-self: flex-start;
+  margin-top: 10px;
+}
+
+.deleteBtn:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+}
+
+.noData {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+  padding: 2rem;
+}

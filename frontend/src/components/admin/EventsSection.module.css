@@ -1,0 +1,243 @@
+/*
+ * Modern and responsive CSS for the Events Section.
+ * Designed for a clean, card-based layout with subtle visual effects.
+ */
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+}
+
+h2 {
+  color: #212529; /* Darker, more professional color */
+  font-size: 28px;
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.sectionTitle {
+  margin-top: 40px;
+  margin-bottom: 24px;
+  color: #212529;
+  font-size: 24px;
+  text-align: center;
+  font-weight: 600;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 12px;
+}
+
+.message {
+  margin: 0 auto 20px;
+  padding: 12px;
+  border-radius: 8px;
+  max-width: 800px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.error {
+  background-color: #fcecec;
+  color: #c0392b;
+}
+
+.success {
+  background-color: #e8f9f5;
+  color: #034d37;
+}
+
+.form {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #495057;
+}
+
+.field input[type='date'],
+.field input[type='time'],
+.field input[type='text'],
+.field textarea {
+  width: 100%;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field input[type='date']:focus,
+.field input[type='time']:focus,
+.field input[type='text']:focus,
+.field textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.buttonRow {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.submitBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
+}
+
+.submitBtn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.cancelBtn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(108, 117, 125, 0.2);
+}
+
+.cancelBtn:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.eventCard {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.eventCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.eventHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #007bff; /* Primary header color */
+  color: white;
+  padding: 12px 16px;
+}
+
+.eventHeader strong {
+  font-weight: 600;
+}
+
+.actionBtns {
+  display: flex;
+  gap: 8px;
+}
+
+.editBtn,
+.deleteBtn {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.editBtn {
+  background-color: #ffc107;
+  color: black;
+}
+
+.editBtn:hover {
+  background-color: #e0a800;
+  transform: translateY(-1px);
+}
+
+.deleteBtn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.deleteBtn:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+}
+
+.eventBody {
+  padding: 16px;
+}
+
+.eventBody p {
+  margin: 8px 0;
+  font-size: 15px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.instructions {
+  margin-top: 12px;
+  white-space: pre-wrap;
+  color: #555;
+  font-style: italic;
+}
+
+.eventFooter {
+  background-color: #f8f9fa;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: #888;
+  text-align: right;
+}
+
+@media (max-width: 576px) {
+  .eventHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

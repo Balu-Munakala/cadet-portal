@@ -1,0 +1,70 @@
+/*
+ * Modern and responsive CSS for the Backup & Restore section.
+ * Designed with a clean, centered layout and elegant button styles.
+ */
+
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  color: #e0e0e0;
+}
+
+h2 {
+  color: #00ffcc;
+  font-size: 28px;
+  margin-bottom: 24px;
+  text-shadow: 0 0 8px rgba(0, 255, 200, 0.3);
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.btn {
+  background-color: #0077b6; /* A clean blue for primary action */
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 119, 182, 0.3);
+}
+
+.btn:hover:not(:disabled) {
+  background-color: #005f91;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 119, 182, 0.4);
+}
+
+.btn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.message {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #00ffcc;
+  font-weight: bold;
+  text-shadow: 0 0 4px rgba(0, 255, 200, 0.2);
+}
+
+@media (max-width: 576px) {
+  .buttons {
+    flex-direction: column;
+  }
+}

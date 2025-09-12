@@ -1,0 +1,234 @@
+/*
+ * Modern and responsive CSS for the Take Attendance section.
+ * Designed for a clean, card-based layout with a professional aesthetic.
+ */
+
+.container {
+  padding: 40px;
+  background-color: #f5f7fa; /* Light, modern background */
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+.heading {
+  font-size: 28px;
+  color: #212529;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.message {
+  margin: 0 auto 20px;
+  padding: 12px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.error {
+  background-color: #fcecec;
+  color: #c0392b;
+}
+
+.success {
+  background-color: #e8f9f5;
+  color: #034d37;
+}
+
+/* ================== Fallin List ================== */
+.fallinList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.fallinCard {
+  background-color: #007bff; /* Primary color for cards */
+  color: white;
+  border-radius: 12px;
+  padding: 20px;
+  width: 280px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+}
+
+.fallinCard:hover {
+  background-color: #0056b3;
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.3);
+}
+
+.fallinCard h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.fallinCard p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+/* ================== Back Button ================== */
+.backButton {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.backButton:hover {
+  background-color: #5a6268;
+}
+
+/* ================== Selected Fallin Info ================== */
+.selectedFallinInfo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.selectedFallinInfo h2 {
+  font-size: 24px;
+  color: #333;
+}
+
+/* ================== Table Styles ================== */
+.tableWrapper {
+  overflow-x: auto;
+  margin-top: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.table {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #fff;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+.table td {
+  color: #333;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.table tbody tr:hover {
+  background-color: #e9ecef;
+  transition: background-color 0.2s ease;
+}
+
+.statusSelect {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #f8f9fa;
+  font-size: 14px;
+}
+
+.statusSelect:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.actionBtns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.editBtn,
+.deleteBtn {
+  background-color: #ffc107;
+  color: black;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.editBtn:hover {
+  background-color: #e0a800;
+  transform: translateY(-1px);
+}
+
+.deleteBtn {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.deleteBtn:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+}
+
+.noData {
+  text-align: center;
+  color: #666;
+  padding: 12px;
+}
+
+.submitAllBtn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto;
+}
+
+.submitAllBtn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.3);
+}
+
+.submitAllBtn:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

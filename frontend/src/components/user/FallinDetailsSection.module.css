@@ -1,0 +1,126 @@
+/*
+ * Modern and responsive CSS for the Fallin Details Section.
+ * Designed for a clean, table-based layout with subtle visual effects.
+ */
+
+.container {
+  padding: 40px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+}
+
+h2 {
+  text-align: center;
+  color: #212529; /* Darker, more professional color */
+  font-size: 28px;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.message {
+  margin: 0 auto 20px;
+  padding: 12px;
+  border-radius: 8px;
+  max-width: 700px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.error {
+  background-color: #fcecec;
+  color: #c0392b;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
+}
+
+.table th,
+.table td {
+  border: 1px solid #dee2e6;
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #007bff; /* A clean blue for the header */
+  color: white;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+.table td {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Rounded corners for the table */
+.table thead tr:first-child th:first-child {
+  border-top-left-radius: 8px;
+}
+.table thead tr:first-child th:last-child {
+  border-top-right-radius: 8px;
+}
+.table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
+}
+.table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.table tbody tr:hover {
+  background-color: #e9ecef;
+  transition: background-color 0.2s ease;
+}
+
+.noData {
+  text-align: center;
+  color: #888;
+  padding: 20px;
+  font-style: italic;
+}
+
+.refreshBtn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
+}
+
+.refreshBtn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.refreshBtn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}

@@ -1,0 +1,186 @@
+/*
+ * Modern and responsive CSS for the Admin Profile Section.
+ * Designed for a sleek, card-based layout with a professional, dark aesthetic.
+ */
+
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  font-family: 'Segoe UI', sans-serif;
+  color: #e0e0e0;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #00ffcc;
+  text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+  text-align: center;
+}
+
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.profilePic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #00ffcc;
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+  object-fit: cover;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.profilePic:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(0, 255, 204, 0.6);
+}
+
+.uploadBtn {
+  background-color: #00ffcc;
+  color: #121212;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.uploadBtn:hover:not(:disabled) {
+  background-color: #00e6b8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 255, 204, 0.3);
+}
+
+.uploadBtn:disabled {
+  background-color: #555;
+  color: #999;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: 500;
+  color: #ccc;
+  margin-bottom: 0.25rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.form input,
+.form textarea,
+.form select {
+  background-color: #0a0a0a;
+  color: #00ffcc;
+  border: 1px solid #00ffcc;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form input:focus,
+.form textarea:focus,
+.form select:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+}
+
+.form textarea {
+  resize: vertical;
+}
+
+.form input[readonly] {
+  background-color: #222;
+  color: #999;
+  cursor: not-allowed;
+  border-color: #333;
+  box-shadow: none;
+}
+
+.submitBtn {
+  background-color: #00ffcc;
+  color: #121212;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background-color: #00e6b8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 255, 204, 0.3);
+}
+
+.submitBtn:disabled {
+  background-color: #555;
+  color: #999;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.message {
+  margin-top: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.success {
+  color: #28a745;
+  background-color: rgba(40, 167, 69, 0.15);
+  border: 1px solid #28a745;
+}
+
+.error {
+  color: #ff6347;
+  background-color: rgba(255, 99, 71, 0.15);
+  border: 1px solid #ff6347;
+}

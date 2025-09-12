@@ -1,0 +1,227 @@
+/*
+ * Best-in-class CSS for a modern and responsive homepage.
+ * Optimized for a clean login/register experience.
+ */
+
+/* ================== General Layout ================== */
+.homepage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  background-color: #f0f4f8; /* Very light blue-gray background */
+  overflow: hidden;
+  position: relative; /* For absolute positioning of forms */
+}
+
+/* ================== Header ================== */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1e3a8a; /* Deep, professional blue */
+  padding: 0 2rem;
+  height: 70px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.logoContainer img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+.centerImageContainer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.centerImageContainer img {
+  height: 45px;
+  width: auto;
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 4px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+}
+
+.textButton {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  padding: 0.6rem 1.25rem;
+  font-size: 1rem;
+  color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  min-width: 90px;
+  text-align: center;
+  backdrop-filter: blur(5px);
+}
+
+.textButton:hover {
+  background-color: #ffffff;
+  color: #1e3a8a;
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ================== Main Content ================== */
+.mainContent {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eef5f2;
+  background-image: url('../assets/NCCbgimg.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* fix background when content is long */
+  height: calc(100vh - 70px);
+  margin-top: 70px;
+  padding: 2rem;
+}
+
+.loginContainer {
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginBox {
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border-radius: 12px;
+  width: 100%;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Form controls */
+.loginBox form {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginBox input,
+.loginBox select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin: 0.75rem 0;
+  border: 1px solid #d1d1d1;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #f8fafc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.loginBox input:focus,
+.loginBox select:focus {
+  outline: none;
+  border-color: #1e3a8a;
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+}
+
+.loginBox input::placeholder {
+  color: #94a3b8;
+}
+
+/* Toggle group for User/Admin selection */
+.toggleGroup {
+  display: flex;
+  margin-bottom: 1.5rem;
+  border: 1px solid #1e3a8a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.toggleBtn {
+  flex: 1;
+  padding: 0.75rem 0;
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  color: #1e3a8a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.toggleBtn:hover {
+  background-color: rgba(30, 58, 138, 0.1);
+}
+
+.toggleBtn.active {
+  background-color: #1e3a8a;
+  color: #ffffff;
+}
+
+/* Submit button */
+.loginBtn {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 1.5rem 0 0;
+  border: none;
+  border-radius: 6px;
+  background-color: #10b981; /* A friendly green color */
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+}
+
+.loginBtn:hover {
+  background-color: #059669; /* Darker green on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3);
+}
+
+.errorMessage {
+  color: #ef4444;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* ================== Responsive Design ================== */
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+    flex-direction: column;
+    padding: 0.75rem 1rem;
+  }
+  .centerImageContainer {
+    position: static;
+    transform: none;
+    margin: 0.5rem 0;
+  }
+  .buttonGroup {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  .mainContent {
+    padding: 1rem;
+  }
+  .loginBox {
+    padding: 2rem 1.5rem;
+  }
+}

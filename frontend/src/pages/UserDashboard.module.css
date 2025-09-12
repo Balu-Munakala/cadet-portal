@@ -1,0 +1,271 @@
+/*
+ * Modern and responsive CSS for the Cadet User Dashboard.
+ * Focuses on a clean aesthetic, intuitive navigation, and subtle interactivity.
+ */
+
+/* ================== Layout Base ================== */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f7fa; /* Light, modern background */
+}
+
+/* ================== Header ================== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  color: #333;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+}
+
+.headerTitle {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 600;
+  margin: 0;
+}
+
+.logoutBtn {
+  font-size: 1.2rem;
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.logoutBtn:hover {
+  color: #d9534f;
+  transform: scale(1.1);
+}
+
+/* ================== Main Layout ================== */
+.mainContainer {
+  display: flex;
+  flex: 1;
+}
+
+/* ================== Sidebar ================== */
+.sidebar {
+  width: 250px;
+  background-color: #ffffff;
+  padding: 2rem 1.5rem;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebar h2 {
+  font-size: 1.25rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: transparent;
+  color: #555;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.sidebar button:hover,
+.sidebar button:focus {
+  background-color: #e6f7ff;
+  color: #007467;
+  transform: translateX(5px);
+  outline: none;
+}
+
+.sidebar button.active {
+  background-color: #007467;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ================== Main Content & Utilities ================== */
+.content {
+  flex-grow: 1;
+  padding: 2rem;
+  background-color: #f5f7fa;
+  overflow-y: auto;
+}
+
+.profileCard {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 450px;
+  margin: auto;
+  text-align: center;
+}
+
+.profileImg {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  object-fit: cover;
+  border: 4px solid #007467;
+}
+
+.sectionCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.loading {
+  text-align: center;
+  margin-top: 5rem;
+  font-size: 1.2rem;
+  color: #999;
+}
+
+.toggleBtn {
+  background-color: #007467;
+  color: white;
+  font-size: 22px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+/* Modal for confirmation/alerts */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  background-color: #fff;
+  color: #333;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  border: 1px solid #ddd;
+}
+
+.modal p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modalActions button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.modalActions button:first-child {
+  background-color: #e0e0e0;
+  color: #555;
+}
+
+.modalActions button:first-child:hover {
+  background-color: #ccc;
+}
+
+.modalActions button:last-child {
+  background-color: #007467;
+  color: #fff;
+}
+
+.modalActions button:last-child:hover {
+  background-color: #005f56;
+  transform: translateY(-1px);
+}
+
+/* ================== Responsive Design ================== */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 1rem;
+    position: relative;
+    height: auto;
+  }
+  .headerLeft {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .headerTitle {
+    font-size: 1.25rem;
+    margin-top: 0.75rem;
+  }
+  .sidebar {
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    box-shadow: none;
+    z-index: 150;
+    padding-top: 5rem;
+  }
+  .sidebarOpen .sidebar {
+    transform: translateX(0);
+  }
+  .mainContainer {
+    flex-direction: column;
+  }
+  .content {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,132 @@
+/*
+ * Modern and responsive CSS for the Events Section.
+ * Designed for a clean, card-based layout with subtle visual effects.
+ */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+}
+
+h2 {
+  text-align: center;
+  color: #212529; /* Darker, more professional color */
+  font-size: 28px;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.message {
+  margin: 0 auto 20px;
+  padding: 12px;
+  border-radius: 8px;
+  max-width: 700px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.error {
+  background-color: #fcecec;
+  color: #c0392b;
+}
+
+.info {
+  background-color: #e8f9f5;
+  color: #034d37;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.eventCard {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* More pronounced shadow for depth */
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.eventCard:hover {
+  transform: translateY(-5px); /* Subtle lift on hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.header {
+  background-color: #007bff; /* A clean blue for headers */
+  color: white;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header strong {
+  font-weight: 600;
+}
+
+.dressCode {
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.body {
+  padding: 16px;
+}
+
+.body p {
+  margin: 8px 0;
+  font-size: 15px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.instructions {
+  margin-top: 12px;
+  white-space: pre-wrap; /* Preserve newlines */
+  color: #555;
+  font-style: italic;
+}
+
+.footer {
+  background-color: #f1f1f1;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: #888;
+  text-align: right;
+}
+
+.refreshBtn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
+}
+
+.refreshBtn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.refreshBtn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}

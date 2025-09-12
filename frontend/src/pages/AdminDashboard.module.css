@@ -1,0 +1,229 @@
+/*
+ * Best-in-class CSS for a modern, responsive admin dashboard.
+ * Designed for readability, elegance, and user experience.
+ */
+
+/* ================== General Layout ================== */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f4f8; /* A very light gray-blue background */
+  font-family: 'Inter', sans-serif; /* A modern, clean font */
+  color: #334155;
+  overflow: hidden;
+}
+
+.mainContainer {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+/* ================== Header ================== */
+.header {
+  width: 100%;
+  background-color: #1e3a8a; /* A deep, professional blue */
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.headerTitle {
+  color: white;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.logoutBtn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.logoutBtn:hover {
+  color: #fca5a5; /* A soft red for hover */
+}
+
+/* ================== Sidebar ================== */
+.sidebar {
+  width: 280px;
+  background-color: white;
+  padding: 1.5rem;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+  overflow-y: auto;
+  transition: transform 0.3s ease-in-out;
+  flex-shrink: 0;
+  border-right: 1px solid #e2e8f0;
+}
+
+.sidebar h2 {
+  color: #1e3a8a;
+  text-align: left;
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.sidebar button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #334155;
+  background-color: #f8fafc; /* A slightly darker background */
+  border: none;
+  border-radius: 0.5rem;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar button:hover,
+.sidebar button:focus {
+  background-color: #dbeafe; /* A light blue hover state */
+  color: #1e3a8a;
+  transform: translateX(5px);
+}
+
+/* ================== Main Content ================== */
+.content {
+  flex-grow: 1;
+  padding: 2rem;
+  background-color: #f8fafc;
+  overflow-y: auto;
+  height: calc(100vh - 60px);
+}
+
+.loading {
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 5rem;
+  color: #64748b;
+}
+
+/* ================== Modal Styles ================== */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal p {
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modalActions button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.modalActions button:first-child {
+  background-color: #e2e8f0;
+  color: #334155;
+}
+
+.modalActions button:first-child:hover {
+  background-color: #cbd5e1;
+}
+
+.modalActions button:last-child {
+  background-color: #ef4444;
+  color: white;
+}
+
+.modalActions button:last-child:hover {
+  background-color: #dc2626;
+}
+
+/* ================== Responsive Design ================== */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 220px;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 10px;
+  }
+  .headerTitle {
+    font-size: 1.25rem;
+  }
+  .sidebar {
+    position: fixed;
+    z-index: 1000;
+    transform: translateX(-100%);
+    width: 250px;
+    height: calc(100vh - 60px);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .toggleBtn {
+    display: block;
+  }
+  
+  .content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+}

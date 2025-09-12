@@ -1,0 +1,118 @@
+/*
+ * Modern and responsive CSS for the Notifications Section.
+ * Designed for a clean, list-based layout with clear visual states.
+ */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+}
+
+h2 {
+  text-align: center;
+  color: #212529; /* Darker, more professional color */
+  font-size: 28px;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.loadingText,
+.errorText,
+.noData {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+  padding: 20px;
+}
+
+.errorText {
+  color: #b0392b;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notificationItem {
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* More pronounced shadow for depth */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.notificationItem:hover {
+  transform: translateY(-2px); /* Subtle lift on hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Marker for unread notifications */
+.unread::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 4px;
+  background-color: #007bff; /* Accent color for unread */
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.read {
+  opacity: 0.8;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.type {
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #343a40;
+}
+
+.timestamp {
+  font-style: italic;
+  color: #999;
+}
+
+.message {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .notificationItem {
+    padding: 12px;
+  }
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .type {
+    font-size: 16px;
+  }
+  .message {
+    font-size: 14px;
+  }
+}

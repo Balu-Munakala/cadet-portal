@@ -1,0 +1,66 @@
+/*
+ * Modern and responsive CSS for the System Reports section.
+ * Designed for a sleek, dark-themed aesthetic with a clean report layout.
+ */
+
+.container {
+  padding: 2rem;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #00ffcc;
+  text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+  text-align: center;
+}
+
+.loading,
+.error {
+  text-align: center;
+  margin: 2rem;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+.error {
+  color: #ff6347;
+}
+
+.reportItem {
+  display: flex;
+  justify-content: space-between;
+  background-color: #1a1a1a;
+  border: 1px solid rgba(0, 255, 204, 0.2);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.reportItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 255, 204, 0.4);
+}
+
+.label {
+  font-weight: 600;
+  color: #00ffcc;
+}
+
+.value {
+  color: #fff;
+  font-weight: 500;
+}
+
+@media (max-width: 576px) {
+  .reportItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

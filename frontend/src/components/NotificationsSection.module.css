@@ -1,0 +1,99 @@
+/*
+ * Enhanced CSS for a modern notification section.
+ * Designed for readability and a clean, minimalist feel.
+ */
+
+.container {
+  max-width: 600px;
+  margin: 1.5rem auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Subtle, modern shadow */
+}
+
+h1 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #eef1f4; /* Light border for separation */
+  transition: background-color 0.2s ease;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item:hover {
+  background-color: #f7f9fc; /* Light hover effect */
+}
+
+.item > div {
+  flex-grow: 1;
+}
+
+.item strong {
+  color: #007467; /* Accent color for the notification type */
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.time {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 0.25rem;
+}
+
+.readBtn {
+  background: #007467;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  min-width: 90px;
+}
+
+.readBtn:hover {
+  background: #005f56;
+  transform: translateY(-1px); /* Subtle lift effect */
+}
+
+.empty {
+  text-align: center;
+  color: #aaa;
+  padding: 2rem;
+  font-style: italic;
+}
+
+@media (max-width: 480px) {
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 0.75rem;
+  }
+  
+  .readBtn {
+    margin-top: 0.75rem;
+    align-self: flex-end;
+  }
+}
