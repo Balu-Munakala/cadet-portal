@@ -51,7 +51,7 @@ app.use('/api/master', require('./routes/master'));
 app.use('/api/fallin', require('./routes/fallin'));
 app.use('/api/attendance', require('./routes/attendance'));
 app.use('/api/achievements', require('./routes/achievements'));
-app.use('/api/events', require('./routes/events'));
+// app.use('/api/events', require('./routes/admin/events'));
 app.use('/api/support-queries', require('./routes/supportQueries'));
 app.use('/api/change-password', require('./routes/changePassword'));
 
@@ -63,7 +63,7 @@ app.use('/api/admin/events', require('./routes/admin/events')); // Assuming this
 
 // Master-specific sub-routes
 app.use('/api/master/manage-admins', require('./routes/master/manageAdmins'));
-app.use('/api/master/manage-users', require('./routes/master/manageUsers'));
+app.use('/api/master/manage-users', require('./routes/admin/manageUsers'));
 app.use('/api/master/notification-manager', require('./routes/master/notificationManager'));
 app.use('/api/master/platform-config', require('./routes/master/platformConfig'));
 app.use('/api/master/global-search', require('./routes/master/globalSearch'));

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { authenticate } = require('../middleware/authMiddleware');
-const eventsController = require('../controllers/eventsController');
+const { authenticate } = require('../../middleware/authMiddleware');
+const eventsController = require('../../controllers/eventsController');
 
 // ─── Admin (ANO) Endpoints ────────────────────────────────────
 // GET     /api/events/admin
