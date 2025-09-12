@@ -8,7 +8,7 @@ import GlobalSearch from '../components/master/GlobalSearch';
 import ManageAdmins from '../components/master/ManageAdmins';
 import ManageUsers from '../components/master/ManageUsers';
 import ProfileSection from '../components/master/ProfileSection';
-import NotificationManager from '../components/master/master/NotificationManager';
+import NotificationManager from '../components/master/NotificationManager';
 import PlatformConfig from '../components/master/PlatformConfig';
 import SupportQueries from '../components/master/SupportQueries';
 import SystemLogs from '../components/master/SystemLogs';
