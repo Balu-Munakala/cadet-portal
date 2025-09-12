@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { authenticate } = require('../middleware/authMiddleware');
-const notificationsController = require('../controllers/notificationsController');
+const { authenticate } = require('../../middleware/authMiddleware');
+const notificationsController = require('../../controllers/notificationsController');
 
 // Fetch all notifications for the logged-in cadet
 router.get('/user', authenticate, notificationsController.getUserNotifications);
