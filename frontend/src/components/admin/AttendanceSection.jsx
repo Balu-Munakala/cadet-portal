@@ -1,45 +1,81 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styles from './AttendanceSection.module.css';
+import React, { useEffect, useState } from 'react';
+import styles from './AchievementsSection.module.css';
 
-const AttendanceDashboard = ({ apiBaseUrl }) => {
-  const navigate = useNavigate();
-  const [view, setView] = useState('dashboard');
+// The component now accepts the API base URL as a prop
+export default function AchievementsSection({ apiBaseUrl }) {
+  const [achievements, setAchievements] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null); // { type: 'error'|'info', text: '' }
 
-  const renderContent = () => {
-    switch (view) {
-      case 'take':
-        // Assuming TakeAttendance.jsx exists and is imported
-        return <TakeAttendance apiBaseUrl={apiBaseUrl} onBack={() => setView('dashboard')} />;
-      case 'view':
-        // Assuming ViewAttendance.jsx exists and is imported
-        return <ViewAttendance apiBaseUrl={apiBaseUrl} onBack={() => setView('dashboard')} />;
-      default:
-        return (
-          <div className={styles.container}>
-            <h1 className={styles.heading}>Attendance Dashboard</h1>
-            <div className={styles.buttonContainer}>
-              <button
-                type="button"
-                className={styles.button}
-                onClick={() => setView('take')}
-              >
-                Take Attendance
-              </button>
-              <button
-                type="button"
-                className={styles.button}
-                onClick={() => setView('view')}
-              >
-                View Attendance
-              </button>
-            </div>
-          </div>
-        );
+  const fetchAchievements = async () => {
+    setLoading(true);
+    setMessage(null);
+    try {
+      // Use the prop for the API call
+      const res = await fetch(`${apiBaseUrl}/api/achievements`, {
+        credentials: 'include'
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      setAchievements(data);
+    } catch (err) {
+      console.error('[Fetch User Achievements Error]', err);
+      setMessage({ type: 'error', text: 'Failed to load achievements.' });
+    } finally {
+      setLoading(false);
     }
   };
 
-  return <div className={styles.page}>{renderContent()}</div>;
-};
+  useEffect(() => {
+    fetchAchievements();
+  }, [apiBaseUrl]); // Added apiBaseUrl to dependency array
 
-export default AttendanceDashboard;
+  return (
+    <div className={styles.container}>
+      <h2>Achievements Feed</h2>
+      {message && (
+        <div
+          className={`${styles.message} ${
+            message.type === 'error' ? styles.error : styles.info
+          }`}
+        >
+          {message.text}
+        </div>
+      )}
+
+      {loading && <p>Loading…</p>}
+
+      {!loading && achievements.length === 0 && <p>No achievements to show.</p>}
+
+      <div className={styles.grid}>
+        {achievements.map((ach) => (
+          <div key={ach.achievement_id} className={styles.card}>
+            {ach.image_path && (
+              <img
+                src={`/uploads/${ach.image_path}`}
+                alt={ach.title}
+                className={styles.cardImage}
+              />
+            )}
+            <div className={styles.cardBody}>
+              <h3 className={styles.cardTitle}>{ach.title}</h3>
+              {ach.description && <p className={styles.cardDesc}>{ach.description}</p>}
+              <p className={styles.cardDate}>
+                {new Date(ach.created_at).toLocaleDateString()}{' '}
+                {new Date(ach.created_at).toLocaleTimeString()}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <button
+        className={styles.refreshBtn}
+        onClick={fetchAchievements}
+        disabled={loading}
+      >
+        Refresh
+      </button>
+    </div>
+  );
+}
