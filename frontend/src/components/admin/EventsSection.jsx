@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './EventsSection.module.css';
 
-export default function AdminEventsSection({ apiBaseUrl }) {
+export default function AdminEventsSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [eventDate, setEventDate] = useState('');
   const [fallinTime, setFallinTime] = useState('');
   const [dressCode, setDressCode] = useState('');

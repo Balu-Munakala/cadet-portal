@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './ProfileSection.module.css';
 
-export default function ProfileSection({ apiBaseUrl }) {
+export default function ProfileSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [profile, setProfile] = useState({});
   const [picUrl, setPicUrl] = useState('/default.jpg');
   const fileInput = useRef(null);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './ManageUsers.module.css';
 import { FaUserCheck } from 'react-icons/fa';
 
-export default function ManageUsers({ apiBaseUrl }) {
+export default function ManageUsers({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

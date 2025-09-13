@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './AttendanceSection.module.css';
 
-export default function AttendanceSection({ apiBaseUrl }) {
+export default function AttendanceSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [attendanceData, setAttendanceData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);

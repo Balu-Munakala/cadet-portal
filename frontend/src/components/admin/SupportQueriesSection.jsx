@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import styles from './SupportQueriesSection.module.css';
 
-export default function SupportQueriesSection({ apiBaseUrl }) {
+export default function SupportQueriesSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [queries, setQueries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [replyText, setReplyText] = useState(''); // for the currently editing query

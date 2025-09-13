@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './AchievementsSection.module.css';
 
 // The component now accepts the API base URL as a prop
-export default function AchievementsSection({ apiBaseUrl }) {
+export default function AchievementsSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [achievements, setAchievements] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null); // { type: 'error'|'info', text: '' }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import styles from './ManageUsersSection.module.css';
 
-export default function ManageUsersSection({ apiBaseUrl }) {
+export default function ManageUsersSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null); // { type: 'error'|'success', text: '' }

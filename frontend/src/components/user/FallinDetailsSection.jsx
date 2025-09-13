@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './FallinDetailsSection.module.css';
 
-const UserFallinDetailsSection = ({ apiBaseUrl }) => {
+const UserFallinDetailsSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
   const [fallinDetails, setFallinDetails] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');

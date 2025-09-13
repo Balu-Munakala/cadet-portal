@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './TakeAttendance.module.css';
 import { FaEdit, FaTrashAlt, FaSave } from 'react-icons/fa';
 
-export default function TakeAttendance({ apiBaseUrl }) {
+export default function TakeAttendance({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [fallins, setFallins] = useState([]);
   const [selectedFallin, setSelectedFallin] = useState(null);
   const [cadets, setCadets] = useState([]);

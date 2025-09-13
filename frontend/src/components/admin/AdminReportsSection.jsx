@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './AdminReportsSection.module.css';
 
-export default function AdminReportsSection({ apiBaseUrl }) {
+export default function AdminReportsSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   // Summary state
   const [summary, setSummary] = useState({
     totalCadets: null,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './AchievementsSection.module.css';
 
-export default function ManageAchievementsSection({ apiBaseUrl }) {
+export default function ManageAchievementsSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [imageFile, setImageFile] = useState(null);

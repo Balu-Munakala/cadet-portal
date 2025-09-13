@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './BackupRestore.module.css';
 
-export default function BackupRestore({ apiBaseUrl }) {
+export default function BackupRestore({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [message, setMessage] = useState('');
   const [loadingBackup, setLoadingBackup] = useState(false);
   const [loadingRestore, setLoadingRestore] = useState(false);

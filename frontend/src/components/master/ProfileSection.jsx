@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ProfileSection.module.css';
 
-const MasterProfileSettings = ({ apiBaseUrl }) => {
+const MasterProfileSettings = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
   const [profile, setProfile] = useState({
     name: '', phone: '', email: '', address: ''
   });

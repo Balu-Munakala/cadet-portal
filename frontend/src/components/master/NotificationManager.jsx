@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './NotificationManager.module.css';
 
-export default function NotificationManager({ apiBaseUrl }) {
+export default function NotificationManager({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

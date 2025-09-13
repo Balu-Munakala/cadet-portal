@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './NotificationsSection.module.css';
 
-export default function NotificationsSection({ apiBaseUrl }) {
+export default function NotificationsSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
   const [marking, setMarking] = useState(false);

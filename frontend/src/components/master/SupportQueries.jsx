@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './SupportQueries.module.css';
 import { FaTrashAlt } from 'react-icons/fa';
 
-export default function SupportQueries({ apiBaseUrl }) {
+export default function SupportQueries({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [queries, setQueries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

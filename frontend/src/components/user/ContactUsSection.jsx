@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ContactUsSection.module.css';
 
-export default function ContactUsSection({ apiBaseUrl }) {
+export default function ContactUsSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',

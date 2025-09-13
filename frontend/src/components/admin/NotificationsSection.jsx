@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './NotificationsSection.module.css';
 
-export default function NotificationsSection({ apiBaseUrl }) {
+export default function NotificationsSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [formData, setFormData] = useState({
     title: '',
     message: ''

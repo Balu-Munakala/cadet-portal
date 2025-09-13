@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './GlobalSearch.module.css';
 
-export default function GlobalSearch({ apiBaseUrl }) {
+export default function GlobalSearch({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
   const [query, setQuery] = useState('');
   const [admins, setAdmins] = useState([]);
   const [users, setUsers] = useState([]);
