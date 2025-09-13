@@ -14,16 +14,14 @@ const HomePage = ({ apiBaseUrl }) => {
     regimental_number: '',
     ano_id: '',
     role: 'ANO',
-    type: 'user',
+    type: 'FSFS',
     password: '',
     confirm_password: ''
   });
   const [message, setMessage] = useState('');
   
-  // Initialize useNavigate hook for smoother navigation
   const navigate = useNavigate();
 
-  // Fetch ANO list on mount
   useEffect(() => {
     if (!apiBaseUrl) {
       console.error("API base URL is not defined.");
@@ -32,7 +30,7 @@ const HomePage = ({ apiBaseUrl }) => {
     const fetchANOList = async () => {
       try {
         const res = await fetch(`${apiBaseUrl}/auth/anos`, {
-          credentials: 'include' // Important for cookies
+          credentials: 'include'
         });
         const data = await res.json();
         if (res.ok) setAnoList(data);
@@ -44,7 +42,6 @@ const HomePage = ({ apiBaseUrl }) => {
     fetchANOList();
   }, [apiBaseUrl]);
 
-  // Handle Login
   const handleLogin = async e => {
     e.preventDefault();
     setMessage('');
@@ -52,7 +49,7 @@ const HomePage = ({ apiBaseUrl }) => {
       const res = await fetch(`${apiBaseUrl}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',  // Critical for session cookies
+        credentials: 'include',
         body: JSON.stringify({
           identifier: loginData.identifier,
           password: loginData.password
@@ -60,7 +57,6 @@ const HomePage = ({ apiBaseUrl }) => {
       });
       const data = await res.json();
       if (res.ok) {
-        // Use navigate for a smoother redirect
         navigate(data.redirect);
       } else {
         setMessage(data.msg || data.message || 'Invalid credentials.');
@@ -70,7 +66,6 @@ const HomePage = ({ apiBaseUrl }) => {
     }
   };
 
-  // Handle Register
   const handleRegister = async e => {
     e.preventDefault();
     setMessage('');
@@ -87,7 +82,7 @@ const HomePage = ({ apiBaseUrl }) => {
     const payload =
       formType === 'admin'
         ? {
-            ano_id: registerData.ano_id, // Use consistent key
+            anoId: registerData.ano_id, // Use consistent key
             role: registerData.role,
             type: registerData.type,
             name: registerData.name,
@@ -108,7 +103,7 @@ const HomePage = ({ apiBaseUrl }) => {
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',  // Keep cookies consistent
+        credentials: 'include',
         body: JSON.stringify(payload)
       });
       const result = await res.json();
@@ -133,7 +128,6 @@ const HomePage = ({ apiBaseUrl }) => {
 
   return (
     <div className={styles.homepage}>
-      {/* Header */}
       <div className={styles.header}>
         <div className={styles.logoContainer}>
           <img src="logo.png" alt="Logo" />
@@ -164,9 +158,7 @@ const HomePage = ({ apiBaseUrl }) => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className={styles.mainContent}>
-        {/* Login Form */}
         {activeForm === 'login' && (
           <div className={styles.loginContainer}>
             <div className={styles.loginBox}>
@@ -204,11 +196,9 @@ const HomePage = ({ apiBaseUrl }) => {
           </div>
         )}
 
-        {/* Register Form */}
         {activeForm === 'register' && (
           <div className={styles.loginContainer}>
             <div className={styles.loginBox}>
-              {/* toggle user/admin */}
               <div className={styles.toggleGroup}>
                 <button
                   className={`${styles.toggleBtn} ${formType === 'user' ? styles.active : ''}`}
@@ -225,14 +215,13 @@ const HomePage = ({ apiBaseUrl }) => {
               </div>
 
               <form onSubmit={handleRegister}>
-                {/* admin fields */}
                 {formType === 'admin' && (
                   <>
                     <input
                       type="text"
-                      name="anoId"
+                      name="ano_id" // Corrected key
                       placeholder="ANO ID"
-                      value={registerData.anoId}
+                      value={registerData.ano_id}
                       onChange={handleInputChange}
                       required
                     />
@@ -257,7 +246,6 @@ const HomePage = ({ apiBaseUrl }) => {
                   </>
                 )}
 
-                {/* user fields */}
                 {formType === 'user' && (
                   <>
                     <input
@@ -284,7 +272,6 @@ const HomePage = ({ apiBaseUrl }) => {
                   </>
                 )}
 
-                {/* common fields */}
                 <input
                   type="text"
                   name="name"
