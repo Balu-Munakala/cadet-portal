@@ -84,11 +84,18 @@ exports.registerAdmin = async (req, res) => {
 // ─── Unified login for cadets (users), masters, and admins ──────────────────
 exports.login = async (req, res) => {
   const { identifier, password } = req.body;
+  
+  console.log('=== LOGIN ATTEMPT STARTED ===');
+  console.log('Identifier:', identifier);
+  console.log('Password provided:', password ? 'Yes' : 'No');
+  
   if (!identifier || !password) {
+    console.log('❌ Missing credentials');
     return res.status(400).json({ msg: 'Missing credentials.' });
   }
 
   try {
+    console.log('\n--- Checking cadet (users table) ---');
     // 1) Attempt to authenticate as a cadet (users table)
     const userResult = await pool.query(
       `SELECT id, regimental_number, ano_id, password_hash, is_approved
@@ -96,12 +103,28 @@ exports.login = async (req, res) => {
        WHERE regimental_number = $1`,
       [identifier]
     );
+    
+    console.log('Cadet query result:', userResult.rows.length, 'matches found');
     if (userResult.rows.length) {
       const cadet = userResult.rows[0];
+      console.log('Cadet found:', {
+        id: cadet.id,
+        regimental_number: cadet.regimental_number,
+        is_approved: cadet.is_approved,
+        has_password_hash: !!cadet.password_hash
+      });
+      
       if (!cadet.is_approved) {
+        console.log('❌ Cadet account not approved');
         return res.status(403).json({ msg: 'User account pending approval.' });
       }
-      if (await bcrypt.compare(password, cadet.password_hash)) {
+      
+      console.log('Comparing password with hash...');
+      const isPasswordValid = await bcrypt.compare(password, cadet.password_hash);
+      console.log('Password comparison result:', isPasswordValid);
+      
+      if (isPasswordValid) {
+        console.log('✅ Cadet login successful');
         // Build the JWT payload for a cadet
         const payload = {
           userType: 'user',
@@ -110,14 +133,17 @@ exports.login = async (req, res) => {
           ano_id: cadet.ano_id
         };
         const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
+        console.log('JWT token generated');
         return res
           .cookie('token', token, COOKIE_OPTS)
           .json({ redirect: '/cadet' });
       } else {
+        console.log('❌ Cadet password invalid');
         return res.status(401).json({ msg: 'Invalid credentials.' });
       }
     }
 
+    console.log('\n--- Checking master (masters table) ---');
     // 2) Attempt to authenticate as a master (masters table)
     const masterResult = await pool.query(
       `SELECT phone, password_hash, is_active
@@ -125,26 +151,44 @@ exports.login = async (req, res) => {
        WHERE phone = $1`,
       [identifier]
     );
+    
+    console.log('Master query result:', masterResult.rows.length, 'matches found');
     if (masterResult.rows.length) {
       const master = masterResult.rows[0];
+      console.log('Master found:', {
+        phone: master.phone,
+        is_active: master.is_active,
+        has_password_hash: !!master.password_hash
+      });
+      
       if (!master.is_active) {
+        console.log('❌ Master account disabled');
         return res.status(403).json({ msg: 'Master account disabled.' });
       }
-      if (await bcrypt.compare(password, master.password_hash)) {
+      
+      console.log('Comparing password with hash...');
+      const isPasswordValid = await bcrypt.compare(password, master.password_hash);
+      console.log('Password comparison result:', isPasswordValid);
+      
+      if (isPasswordValid) {
+        console.log('✅ Master login successful');
         // Build the JWT payload for a master
         const payload = {
           userType: 'master',
           phone: master.phone
         };
         const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
+        console.log('JWT token generated');
         return res
           .cookie('token', token, COOKIE_OPTS)
           .json({ redirect: '/administrator' });
       } else {
+        console.log('❌ Master password invalid');
         return res.status(401).json({ msg: 'Invalid credentials.' });
       }
     }
 
+    console.log('\n--- Checking admin (admins table) ---');
     // 3) Attempt to authenticate as an admin (admins table)
     const adminResult = await pool.query(
       `SELECT id, ano_id, role, password_hash, is_approved
@@ -152,12 +196,29 @@ exports.login = async (req, res) => {
        WHERE ano_id = $1`,
       [identifier]
     );
+    
+    console.log('Admin query result:', adminResult.rows.length, 'matches found');
     if (adminResult.rows.length) {
       const admin = adminResult.rows[0];
+      console.log('Admin found:', {
+        id: admin.id,
+        ano_id: admin.ano_id,
+        role: admin.role,
+        is_approved: admin.is_approved,
+        has_password_hash: !!admin.password_hash
+      });
+      
       if (!admin.is_approved) {
+        console.log('❌ Admin account not approved');
         return res.status(403).json({ msg: 'Admin account pending approval.' });
       }
-      if (await bcrypt.compare(password, admin.password_hash)) {
+      
+      console.log('Comparing password with hash...');
+      const isPasswordValid = await bcrypt.compare(password, admin.password_hash);
+      console.log('Password comparison result:', isPasswordValid);
+      
+      if (isPasswordValid) {
+        console.log('✅ Admin login successful');
         // Build the JWT payload for an admin
         const payload = {
           userType: 'admin',
@@ -166,19 +227,26 @@ exports.login = async (req, res) => {
           role: admin.role
         };
         const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
+        console.log('JWT token generated');
         return res
           .cookie('token', token, COOKIE_OPTS)
           .json({ redirect: '/admin' });
       } else {
+        console.log('❌ Admin password invalid');
         return res.status(401).json({ msg: 'Invalid credentials.' });
       }
     }
 
+    console.log('\n❌ No match found in any table for identifier:', identifier);
     // 4) No match found in any table
     return res.status(401).json({ msg: 'Invalid credentials.' });
+    
   } catch (err) {
-    console.error('Login error:', err);
+    console.error('❌ Login error:', err);
+    console.error('Error stack:', err.stack);
     return res.status(500).json({ msg: 'Server error.' });
+  } finally {
+    console.log('=== LOGIN ATTEMPT COMPLETED ===\n');
   }
 };
 
