@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './DashboardSection.module.css';
 
-const DashboardSection = ({ apiBaseUrl }) => {
+const DashboardSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
   const [profile, setProfile] = useState({
     name: 'Loading...',
     contact: 'Loading...',
