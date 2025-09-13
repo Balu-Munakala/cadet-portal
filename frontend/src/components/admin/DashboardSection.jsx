@@ -11,6 +11,7 @@ const DashboardSection = ({ apiBaseUrl }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('API Base URL is:', apiBaseUrl); 
     const fetchInitialData = async () => {
       try {
         const [profileRes, picRes, notificationsRes] = await Promise.all([
@@ -19,11 +20,19 @@ const DashboardSection = ({ apiBaseUrl }) => {
           fetch(`${apiBaseUrl}/api/admin/notifications`, { credentials: 'include' })
         ]);
 
-        if (profileRes.ok) {
-          const profileData = await profileRes.json();
-          setProfile(profileData);
+        // --- IMPROVED ERROR HANDLING ---
+        if (!profileRes.ok) {
+          // If the response is not OK, read it as text to see the HTML
+          const errorText = await profileRes.text();
+          console.error('Failed to fetch profile. Server responded with:', errorText);
+          // You might want to navigate to login here, e.g., navigate('/login');
+          return; // Stop further execution
         }
-
+        
+        const profileData = await profileRes.json();
+        setProfile(profileData);
+        
+        // You can add similar checks for picRes and notificationsRes
         if (picRes.ok) {
           const picBlob = await picRes.blob();
           setProfile(prev => ({ ...prev, photoUrl: URL.createObjectURL(picBlob) }));
