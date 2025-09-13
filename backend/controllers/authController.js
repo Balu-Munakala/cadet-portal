@@ -91,7 +91,7 @@ exports.login = async (req, res) => {
 
   try {
     console.log('\n--- Checking cadet (users table) by regimental_number ---');
-    // 1) Check users table by regimental_number ONLY
+    // 1) Check users table by regimental_number ONLY - FIXED for PostgreSQL
     const userResult = await pool.query(
       `SELECT id, regimental_number, ano_id, password_hash, is_approved
        FROM users
@@ -138,7 +138,7 @@ exports.login = async (req, res) => {
     }
 
     console.log('\n--- Checking admin (admins table) by ano_id ---');
-    // 2) Check admins table by ano_id ONLY
+    // 2) Check admins table by ano_id ONLY - FIXED for PostgreSQL
     const adminResult = await pool.query(
       `SELECT id, ano_id, role, password_hash, is_approved
        FROM admins
@@ -186,7 +186,7 @@ exports.login = async (req, res) => {
     }
 
     console.log('\n--- Checking master (masters table) by phone ---');
-    // 3) Check masters table by phone ONLY
+    // 3) Check masters table by phone ONLY - FIXED for PostgreSQL
     const masterResult = await pool.query(
       `SELECT phone, password_hash, is_active
        FROM masters
@@ -230,17 +230,11 @@ exports.login = async (req, res) => {
     }
 
     console.log('\n❌ No match found in any table for identifier:', identifier);
-    console.log('Expected formats:');
-    console.log('- Cadet: regimental_number');
-    console.log('- Admin: ano_id'); 
-    console.log('- Master: phone number');
     return res.status(401).json({ msg: 'Invalid credentials.' });
     
   } catch (err) {
     console.error('❌ Login error:', err);
     return res.status(500).json({ msg: 'Server error.' });
-  } finally {
-    console.log('=== LOGIN ATTEMPT COMPLETED ===\n');
   }
 };
 
