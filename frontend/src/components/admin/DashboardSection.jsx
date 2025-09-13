@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaClipboardList, FaCalendarAlt, FaChartLine, FaQuestionCircle } from 'react-icons/fa';
 import styles from './DashboardSection.module.css';
 
-const DashboardSection = ({ apiBaseUrl }) => {
+const DashboardSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL }) => {
   const [profile, setProfile] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
