@@ -38,16 +38,6 @@ app.use(
   })
 );
 
-// Add request logging middleware
-app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-  console.log('Headers:', req.headers);
-  if (req.method === 'POST' && req.url === '/auth/login') {
-    console.log('Login request body:', req.body);
-  }
-  next();
-});
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

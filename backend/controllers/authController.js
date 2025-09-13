@@ -1,12 +1,10 @@
-const pool = require('../config/db'); // Your PostgreSQL pool
+const pool = require('../config/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { tokenBlacklist } = require('../middleware/authMiddleware');
 
-// Make sure this matches the same secret used in authMiddleware.
 const SECRET_KEY = process.env.JWT_SECRET || 'your-secret-key';
 
-// Cookie options for “token” cookie. In production, you should set secure: true on HTTPS.
 const COOKIE_OPTS = {
   httpOnly: true,
   sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
@@ -20,7 +18,6 @@ exports.registerUser = async (req, res) => {
     return res.status(400).json({ msg: 'Missing required fields.' });
   }
   try {
-    // Check if email or regimental_number already exists
     const existsResult = await pool.query(
       `SELECT id
        FROM users
@@ -31,7 +28,6 @@ exports.registerUser = async (req, res) => {
       return res.status(400).json({ msg: 'User already exists.' });
     }
 
-    // Hash password and insert new user
     const hash = await bcrypt.hash(password, 12);
     await pool.query(
       `INSERT INTO users
@@ -54,7 +50,6 @@ exports.registerAdmin = async (req, res) => {
     return res.status(400).json({ msg: 'Missing required fields.' });
   }
   try {
-    // Check if email or ano_id already exists in admins
     const existsResult = await pool.query(
       `SELECT id
        FROM admins
@@ -65,7 +60,6 @@ exports.registerAdmin = async (req, res) => {
       return res.status(400).json({ msg: 'Admin already registered.' });
     }
 
-    // Hash password and insert new admin
     const hash = await bcrypt.hash(password, 12);
     await pool.query(
       `INSERT INTO admins
@@ -84,14 +78,12 @@ exports.registerAdmin = async (req, res) => {
 // ─── Unified login for cadets (users), masters, and admins ──────────────────
 exports.login = async (req, res) => {
   const { identifier, password } = req.body;
-  
-  console.log('=== LOGIN ATTEMPT STARTED ===');
-  console.log('Identifier:', identifier);
-  console.log('Password provided:', password ? 'Yes' : 'No');
+  if (!identifier || !password) {
+    return res.status(400).json({ msg: 'Missing credentials.' });
+  }
 
   try {
-    console.log('\n--- Checking cadet (users table) by regimental_number ---');
-    // 1) Check users table by regimental_number ONLY - FIXED for PostgreSQL
+    // 1) Check users table by regimental_number
     const userResult = await pool.query(
       `SELECT id, regimental_number, ano_id, password_hash, is_approved
        FROM users
@@ -99,27 +91,12 @@ exports.login = async (req, res) => {
       [identifier]
     );
     
-    console.log('Cadet query result:', userResult.rows.length, 'matches found');
     if (userResult.rows.length) {
       const cadet = userResult.rows[0];
-      console.log('Cadet found:', {
-        id: cadet.id,
-        regimental_number: cadet.regimental_number,
-        is_approved: cadet.is_approved,
-        has_password_hash: !!cadet.password_hash
-      });
-      
       if (!cadet.is_approved) {
-        console.log('❌ Cadet account not approved');
         return res.status(403).json({ msg: 'User account pending approval.' });
       }
-      
-      console.log('Comparing password with hash...');
-      const isPasswordValid = await bcrypt.compare(password, cadet.password_hash);
-      console.log('Password comparison result:', isPasswordValid);
-      
-      if (isPasswordValid) {
-        console.log('✅ Cadet login successful');
+      if (await bcrypt.compare(password, cadet.password_hash)) {
         const payload = {
           userType: 'user',
           id: cadet.id,
@@ -127,18 +104,15 @@ exports.login = async (req, res) => {
           ano_id: cadet.ano_id
         };
         const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
-        console.log('JWT token generated');
         return res
           .cookie('token', token, COOKIE_OPTS)
           .json({ redirect: '/cadet' });
       } else {
-        console.log('❌ Cadet password invalid');
         return res.status(401).json({ msg: 'Invalid credentials.' });
       }
     }
 
-    console.log('\n--- Checking admin (admins table) by ano_id ---');
-    // 2) Check admins table by ano_id ONLY - FIXED for PostgreSQL
+    // 2) Check admins table by ano_id
     const adminResult = await pool.query(
       `SELECT id, ano_id, role, password_hash, is_approved
        FROM admins
@@ -146,28 +120,12 @@ exports.login = async (req, res) => {
       [identifier]
     );
     
-    console.log('Admin query result:', adminResult.rows.length, 'matches found');
     if (adminResult.rows.length) {
       const admin = adminResult.rows[0];
-      console.log('Admin found:', {
-        id: admin.id,
-        ano_id: admin.ano_id,
-        role: admin.role,
-        is_approved: admin.is_approved,
-        has_password_hash: !!admin.password_hash
-      });
-      
       if (!admin.is_approved) {
-        console.log('❌ Admin account not approved');
         return res.status(403).json({ msg: 'Admin account pending approval.' });
       }
-      
-      console.log('Comparing password with hash...');
-      const isPasswordValid = await bcrypt.compare(password, admin.password_hash);
-      console.log('Password comparison result:', isPasswordValid);
-      
-      if (isPasswordValid) {
-        console.log('✅ Admin login successful');
+      if (await bcrypt.compare(password, admin.password_hash)) {
         const payload = {
           userType: 'admin',
           id: admin.id,
@@ -175,18 +133,15 @@ exports.login = async (req, res) => {
           role: admin.role
         };
         const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
-        console.log('JWT token generated');
         return res
           .cookie('token', token, COOKIE_OPTS)
           .json({ redirect: '/admin' });
       } else {
-        console.log('❌ Admin password invalid');
         return res.status(401).json({ msg: 'Invalid credentials.' });
       }
     }
 
-    console.log('\n--- Checking master (masters table) by phone ---');
-    // 3) Check masters table by phone ONLY - FIXED for PostgreSQL
+    // 3) Check masters table by phone
     const masterResult = await pool.query(
       `SELECT phone, password_hash, is_active
        FROM masters
@@ -194,46 +149,29 @@ exports.login = async (req, res) => {
       [identifier]
     );
     
-    console.log('Master query result:', masterResult.rows.length, 'matches found');
     if (masterResult.rows.length) {
       const master = masterResult.rows[0];
-      console.log('Master found:', {
-        phone: master.phone,
-        is_active: master.is_active,
-        has_password_hash: !!master.password_hash
-      });
-      
       if (!master.is_active) {
-        console.log('❌ Master account disabled');
         return res.status(403).json({ msg: 'Master account disabled.' });
       }
-      
-      console.log('Comparing password with hash...');
-      const isPasswordValid = await bcrypt.compare(password, master.password_hash);
-      console.log('Password comparison result:', isPasswordValid);
-      
-      if (isPasswordValid) {
-        console.log('✅ Master login successful');
+      if (await bcrypt.compare(password, master.password_hash)) {
         const payload = {
           userType: 'master',
           phone: master.phone
         };
         const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
-        console.log('JWT token generated');
         return res
           .cookie('token', token, COOKIE_OPTS)
           .json({ redirect: '/administrator' });
       } else {
-        console.log('❌ Master password invalid');
         return res.status(401).json({ msg: 'Invalid credentials.' });
       }
     }
 
-    console.log('\n❌ No match found in any table for identifier:', identifier);
     return res.status(401).json({ msg: 'Invalid credentials.' });
     
   } catch (err) {
-    console.error('❌ Login error:', err);
+    console.error('Login error:', err);
     return res.status(500).json({ msg: 'Server error.' });
   }
 };
@@ -253,11 +191,10 @@ exports.getAnos = async (req, res) => {
   }
 };
 
-// ─── Logout: Clear the “token” cookie and blacklist the token ───────────────
+// ─── Logout: Clear the "token" cookie and blacklist the token ───────────────
 exports.logout = (req, res) => {
   const token = req.cookies?.token;
   if (token) {
-    // Invalidate it immediately
     tokenBlacklist.add(token);
   }
   return res.clearCookie('token', COOKIE_OPTS).sendStatus(200);
@@ -265,6 +202,5 @@ exports.logout = (req, res) => {
 
 // ─── Protected: Return the decoded JWT payload ──────────────────────────────
 exports.validateRole = (req, res) => {
-  // req.user was populated by authenticate middleware
   return res.json({ user: req.user });
 };
