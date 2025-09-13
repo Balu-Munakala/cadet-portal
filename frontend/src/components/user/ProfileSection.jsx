@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ProfileSection.module.css';
 
-const ProfileSection = ({ apiBaseUrl }) => {
+const ProfileSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
   const [formData, setFormData] = useState({});
   const [profilePic, setProfilePic] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
