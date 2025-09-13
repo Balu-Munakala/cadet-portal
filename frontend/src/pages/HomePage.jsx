@@ -45,24 +45,60 @@ const HomePage = ({ apiBaseUrl }) => {
   const handleLogin = async e => {
     e.preventDefault();
     setMessage('');
+    console.log('🔐 Login attempt started');
+    console.log('Identifier:', loginData.identifier);
+    console.log('Password provided:', loginData.password ? 'Yes' : 'No');
+    console.log('API Base URL:', apiBaseUrl);
+    
     try {
-      const res = await fetch(`${apiBaseUrl}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          identifier: loginData.identifier,
-          password: loginData.password
-        })
+      const loginUrl = `${apiBaseUrl}/auth/login`;
+      console.log('🌐 Making request to:', loginUrl);
+      
+      const requestBody = JSON.stringify({
+        identifier: loginData.identifier,
+        password: loginData.password
       });
-      const data = await res.json();
+      
+      console.log('📦 Request body:', requestBody);
+      
+      const res = await fetch(loginUrl, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        credentials: 'include',
+        body: requestBody
+      });
+      
+      console.log('📨 Response status:', res.status, res.statusText);
+      console.log('📋 Response headers:', Object.fromEntries([...res.headers]));
+      
+      const responseText = await res.text();
+      console.log('📄 Raw response:', responseText);
+      
+      let data;
+      try {
+        data = JSON.parse(responseText);
+        console.log('✅ Parsed JSON response:', data);
+      } catch (parseError) {
+        console.error('❌ Failed to parse JSON:', parseError);
+        console.error('Raw response that failed to parse:', responseText);
+        setMessage('Server returned invalid response. Check console for details.');
+        return;
+      }
+      
       if (res.ok) {
+        console.log('🎉 Login successful, redirecting to:', data.redirect);
         navigate(data.redirect);
       } else {
+        console.log('❌ Login failed with message:', data.msg || data.message);
         setMessage(data.msg || data.message || 'Invalid credentials.');
       }
-    } catch {
-      setMessage('Server error. Try again later.');
+    } catch (error) {
+      console.error('💥 Login request failed:', error);
+      console.error('Error details:', error.message);
+      setMessage('Server error. Try again later. Check console for details.');
     }
   };
 
