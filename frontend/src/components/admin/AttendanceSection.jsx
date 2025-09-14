@@ -1,81 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import styles from './AchievementsSection.module.css';
+// src/components/Attendance/AttendanceSection.jsx
+import React, { useState } from 'react';
+import styles from './AttendanceSection.module.css';
+import TakeAttendance from './TakeAttendance';
+import ViewAttendance from './ViewAttendance';
 
-// The component now accepts the API base URL as a prop
-export default function AchievementsSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
-  const [achievements, setAchievements] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState(null); // { type: 'error'|'info', text: '' }
+export default function AttendanceSection() {
+  const [view, setView] = useState('dashboard');
 
-  const fetchAchievements = async () => {
-    setLoading(true);
-    setMessage(null);
-    try {
-      // Use the prop for the API call
-      const res = await fetch(`${apiBaseUrl}/api/achievements`, {
-        credentials: 'include'
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      setAchievements(data);
-    } catch (err) {
-      console.error('[Fetch User Achievements Error]', err);
-      setMessage({ type: 'error', text: 'Failed to load achievements.' });
-    } finally {
-      setLoading(false);
+  const renderContent = () => {
+    switch (view) {
+      case 'take':
+        // Pass setView to allow the child component to navigate back
+        return <TakeAttendance setView={setView} />;
+      case 'view':
+        // Pass setView to allow the child component to navigate back
+        return <ViewAttendance setView={setView} />;
+      default:
+        return (
+          <div className={styles.container}>
+            <h1 className={styles.heading}>Attendance Dashboard</h1>
+            <div className={styles.buttonContainer}>
+              <button
+                type="button"
+                className={styles.button}
+                onClick={() => setView('take')}
+              >
+                <i className={`fas fa-clipboard-check ${styles.icon}`}></i>
+                Take Attendance
+              </button>
+
+              <button
+                type="button"
+                className={styles.button}
+                onClick={() => setView('view')}
+              >
+                <i className={`fas fa-eye ${styles.icon}`}></i>
+                View Attendance
+              </button>
+            </div>
+          </div>
+        );
     }
   };
 
-  useEffect(() => {
-    fetchAchievements();
-  }, [apiBaseUrl]); // Added apiBaseUrl to dependency array
-
-  return (
-    <div className={styles.container}>
-      <h2>Achievements Feed</h2>
-      {message && (
-        <div
-          className={`${styles.message} ${
-            message.type === 'error' ? styles.error : styles.info
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
-
-      {loading && <p>Loading…</p>}
-
-      {!loading && achievements.length === 0 && <p>No achievements to show.</p>}
-
-      <div className={styles.grid}>
-        {achievements.map((ach) => (
-          <div key={ach.achievement_id} className={styles.card}>
-            {ach.image_path && (
-              <img
-                src={`/uploads/${ach.image_path}`}
-                alt={ach.title}
-                className={styles.cardImage}
-              />
-            )}
-            <div className={styles.cardBody}>
-              <h3 className={styles.cardTitle}>{ach.title}</h3>
-              {ach.description && <p className={styles.cardDesc}>{ach.description}</p>}
-              <p className={styles.cardDate}>
-                {new Date(ach.created_at).toLocaleDateString()}{' '}
-                {new Date(ach.created_at).toLocaleTimeString()}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <button
-        className={styles.refreshBtn}
-        onClick={fetchAchievements}
-        disabled={loading}
-      >
-        Refresh
-      </button>
-    </div>
-  );
+  return <div className={styles.page}>{renderContent()}</div>;
 }
