@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { authenticate } = require('../../middleware/authMiddleware');
-const adminReportsController = require('../../controllers/adminReportsController');
+const { authenticate } = require('../middleware/authMiddleware');
+const adminReportsController = require('../controllers/adminReportsController');
 
 // GET /api/admin/reports/users
 router.get('/users', authenticate, adminReportsController.getUserCounts);

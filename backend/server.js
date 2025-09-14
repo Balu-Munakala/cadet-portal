@@ -73,6 +73,8 @@ app.use('/api/master/system-logs', require('./routes/master/systemLogs'));
 app.use('/api/master/system-reports', require('./routes/master/systemReports'));
 app.use('/api/master/backup-restore', require('./routes/master/backupRestore'));
 
+app.use('/api/notifications', require('./routes/notifications'));
+
 // Root health check
 app.get('/', (req, res) => res.send('GITAM NCC API is live!'));
 
