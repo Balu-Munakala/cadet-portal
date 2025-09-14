@@ -18,7 +18,7 @@ export default function NotificationsSection({ apiBaseUrl = process.env.REACT_AP
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${apiBaseUrl}/api/notifications/user`, {
+      const res = await fetch(`${apiBaseUrl}/api/notifications`, {
         credentials: 'include'
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);

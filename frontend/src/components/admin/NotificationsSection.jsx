@@ -19,7 +19,7 @@ export default function NotificationsSection({ apiBaseUrl = process.env.REACT_AP
     setLoading(true);
     setFeedback(null);
     try {
-      const res = await fetch(`${apiBaseUrl}/api/admin/notifications`, {
+      const res = await fetch(`${apiBaseUrl}/api/notifications`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

@@ -25,10 +25,10 @@ export default function AdminReportsSection({ apiBaseUrl = process.env.REACT_APP
 
       try {
         const [usersRes, eventsRes, attSumRes, attDetailsRes] = await Promise.all([
-          fetch(`${apiBaseUrl}/api/admin/reports/users`, { credentials: 'include' }),
-          fetch(`${apiBaseUrl}/api/admin/reports/events-count`, { credentials: 'include' }),
-          fetch(`${apiBaseUrl}/api/admin/reports/attendance-summary`, { credentials: 'include' }),
-          fetch(`${apiBaseUrl}/api/admin/reports/attendance-details`, { credentials: 'include' }),
+          fetch(`${apiBaseUrl}/api/reports/users`, { credentials: 'include' }),
+          fetch(`${apiBaseUrl}/api/reports/events-count`, { credentials: 'include' }),
+          fetch(`${apiBaseUrl}/api/reports/attendance-summary`, { credentials: 'include' }),
+          fetch(`${apiBaseUrl}/api/reports/attendance-details`, { credentials: 'include' }),
         ]);
 
         const usersData = await usersRes.json();

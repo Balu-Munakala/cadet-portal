@@ -24,7 +24,7 @@ export default function AdminEventsSection({ apiBaseUrl = process.env.REACT_APP_
     setLoading(true);
     setMessage(null);
     try {
-      const res = await fetch(`${apiBaseUrl}/api/events/admin`, { credentials: 'include' });
+      const res = await fetch(`${apiBaseUrl}/api/events`, { credentials: 'include' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       setEvents(data);
@@ -87,7 +87,7 @@ export default function AdminEventsSection({ apiBaseUrl = process.env.REACT_APP_
       let res;
       if (editingEvent) {
         // Update existing
-        res = await fetch(`${apiBaseUrl}/api/events/admin/${editingEvent.event_id}`, {
+        res = await fetch(`${apiBaseUrl}/api/events/${editingEvent.event_id}`, {
           method: 'PUT',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
@@ -95,7 +95,7 @@ export default function AdminEventsSection({ apiBaseUrl = process.env.REACT_APP_
         });
       } else {
         // Create new
-        res = await fetch(`${apiBaseUrl}/api/events/admin`, {
+        res = await fetch(`${apiBaseUrl}/api/events`, {
           method: 'POST',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
@@ -130,7 +130,7 @@ export default function AdminEventsSection({ apiBaseUrl = process.env.REACT_APP_
       message: 'Delete this event? This action cannot be undone.',
       onConfirm: async () => {
         try {
-          const res = await fetch(`${apiBaseUrl}/api/events/admin/${eventId}`, {
+          const res = await fetch(`${apiBaseUrl}/api/events/${eventId}`, {
             method: 'DELETE',
             credentials: 'include',
           });

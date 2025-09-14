@@ -52,19 +52,17 @@ app.use('/api/master', require('./routes/master'));
 app.use('/api/fallin', require('./routes/fallin'));
 app.use('/api/attendance', require('./routes/attendance'));
 app.use('/api/achievements', require('./routes/achievements'));
-app.use('/api/events', require('./routes/admin/events'));
+app.use('/api/events', require('./routes/events'));
 app.use('/api/support-queries', require('./routes/supportQueries'));
 app.use('/api/change-password', require('./routes/changePassword'));
-
-// Admin-specific sub-routes
-app.use('/api/admin/manage-users', require('./routes/admin/manageUsers'));
-app.use('/api/admin/reports', require('./routes/admin/adminReports'));
-app.use('/api/admin/notifications', require('./routes/admin/notifications'));
-app.use('/api/admin/events', require('./routes/admin/events')); // Assuming this is an admin event management route
+app.use('/api/manage-users', require('./routes/manageUsers'));
+app.use('/api/reports', require('./routes/adminReports'));
+app.use('/api/notifications', require('./routes/notifications'));
+app.use('/api/events', require('./routes/events'));
 
 // Master-specific sub-routes
 app.use('/api/master/manage-admins', require('./routes/master/manageAdmins'));
-app.use('/api/master/manage-users', require('./routes/admin/manageUsers'));
+app.use('/api/master/manage-users', require('./routes/manageUsers'));
 app.use('/api/master/notification-manager', require('./routes/master/notificationManager'));
 app.use('/api/master/platform-config', require('./routes/master/platformConfig'));
 app.use('/api/master/global-search', require('./routes/master/globalSearch'));
@@ -72,8 +70,6 @@ app.use('/api/master/support-queries', require('./routes/master/supportQueries')
 app.use('/api/master/system-logs', require('./routes/master/systemLogs'));
 app.use('/api/master/system-reports', require('./routes/master/systemReports'));
 app.use('/api/master/backup-restore', require('./routes/master/backupRestore'));
-
-app.use('/api/notifications', require('./routes/notifications'));
 
 // Root health check
 app.get('/', (req, res) => res.send('GITAM NCC API is live!'));

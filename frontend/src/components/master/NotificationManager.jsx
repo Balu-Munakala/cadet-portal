@@ -17,7 +17,7 @@ export default function NotificationManager({ apiBaseUrl = process.env.REACT_APP
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`${apiBaseUrl}/api/master/notifications`, { 
+      const res = await fetch(`${apiBaseUrl}/api/master/notification-manager`, { 
         credentials: 'include' 
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);

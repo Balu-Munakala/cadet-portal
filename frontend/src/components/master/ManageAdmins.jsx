@@ -13,7 +13,7 @@ export default function ManageAdmins({ apiBaseUrl = process.env.REACT_APP_API_UR
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`${apiBaseUrl}/api/master/admins`, { 
+      const res = await fetch(`${apiBaseUrl}/api/master/manage-admins`, { 
         credentials: 'include' 
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -37,7 +37,7 @@ export default function ManageAdmins({ apiBaseUrl = process.env.REACT_APP_API_UR
       message: `Are you sure you want to ${currentlyApproved ? 'disapprove' : 'approve'} this admin?`,
       onConfirm: async () => {
         try {
-          const endpoint = `${apiBaseUrl}/api/master/admins/${adminId}/${
+          const endpoint = `${apiBaseUrl}/api/master/manage-admins/${adminId}/${
             currentlyApproved ? 'disapprove' : 'approve'
           }`;
     
