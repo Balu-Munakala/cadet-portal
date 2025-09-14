@@ -58,7 +58,6 @@ app.use('/api/change-password', require('./routes/changePassword'));
 app.use('/api/manage-users', require('./routes/manageUsers'));
 app.use('/api/reports', require('./routes/adminReports'));
 app.use('/api/notifications', require('./routes/notifications'));
-app.use('/api/events', require('./routes/events'));
 
 // Master-specific sub-routes
 app.use('/api/master/manage-admins', require('./routes/master/manageAdmins'));
