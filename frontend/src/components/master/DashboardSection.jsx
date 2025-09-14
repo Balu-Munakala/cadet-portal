@@ -63,7 +63,7 @@ const MasterDashboardSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) =
       </div>
 
       <div className={styles.profileDetails}>
-        <p><strong>Contact:</strong> {profile?.contact || 'N/A'}</p>
+        <p><strong>Contact:</strong> {profile?.phone || 'N/A'}</p>
         <p><strong>Email:</strong> {profile?.email || 'N/A'}</p>
       </div>
 

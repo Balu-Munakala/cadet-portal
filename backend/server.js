@@ -52,7 +52,7 @@ app.use('/api/master', require('./routes/master'));
 app.use('/api/fallin', require('./routes/fallin'));
 app.use('/api/attendance', require('./routes/attendance'));
 app.use('/api/achievements', require('./routes/achievements'));
-// app.use('/api/events', require('./routes/admin/events'));
+app.use('/api/events', require('./routes/admin/events'));
 app.use('/api/support-queries', require('./routes/supportQueries'));
 app.use('/api/change-password', require('./routes/changePassword'));
 
