@@ -55,7 +55,7 @@ app.use('/api/achievements', require('./routes/achievements'));
 app.use('/api/events', require('./routes/events'));
 app.use('/api/support-queries', require('./routes/supportQueries'));
 app.use('/api/change-password', require('./routes/changePassword'));
-app.use('/api/manage-users', require('./routes/manageUsers'));
+app.use('/api/admin/manage-users', require('./routes/manageUsers'));
 app.use('/api/reports', require('./routes/adminReports'));
 app.use('/api/notifications', require('./routes/notifications'));
 
