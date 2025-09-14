@@ -17,7 +17,7 @@ export default function ManageUsersSection({ apiBaseUrl = process.env.REACT_APP_
     setLoading(true);
     setMessage(null);
     try {
-      const res = await fetch(`${apiBaseUrl}/api/manage-users`, {
+      const res = await fetch(`${apiBaseUrl}/api/admin/manage-users`, {
         credentials: 'include',
       });
       if (!res.ok) {
@@ -39,7 +39,7 @@ export default function ManageUsersSection({ apiBaseUrl = process.env.REACT_APP_
       message: 'Are you sure you want to approve this cadet?',
       onConfirm: async () => {
         try {
-          const res = await fetch(`${apiBaseUrl}/api/manage-users/approve/${userId}`, {
+          const res = await fetch(`${apiBaseUrl}/api/admin/manage-users/approve/${userId}`, {
             method: 'PUT',
             credentials: 'include',
           });
@@ -66,7 +66,7 @@ export default function ManageUsersSection({ apiBaseUrl = process.env.REACT_APP_
       message: 'Are you sure you want to reject and delete this user? This action cannot be undone.',
       onConfirm: async () => {
         try {
-          const res = await fetch(`${apiBaseUrl}/api/manage-users/${userId}`, {
+          const res = await fetch(`${apiBaseUrl}/api/admin/manage-users/${userId}`, {
             method: 'DELETE',
             credentials: 'include',
           });
