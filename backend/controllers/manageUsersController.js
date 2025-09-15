@@ -8,23 +8,10 @@ const pool = require('../config/db');
 // In controllers/manageUsersController.js
 
 exports.getAllUsers = async (req, res) => {
-  // --- START DEBUG LOGS ---
-  console.log('--- ✅ GET /api/admin/manage-users endpoint was HIT ---');
-
   if (req.user.userType !== 'admin') {
-    console.log('⛔️ Access Denied: User is not an admin.');
     return res.status(403).json({ msg: 'Only ANOs may manage cadet registrations.' });
   }
-
-  // Log the entire authenticated user object to see all details
-  console.log('👤 Authenticated User (req.user):', req.user);
-
   const ano_id = req.user.ano_id;
-
-  // Log the specific ano_id being used for the database query
-  console.log(`🔎 Querying database for users with ano_id: '${ano_id}'`);
-  // --- END DEBUG LOGS ---
-
   try {
     const result = await pool.query(
       `SELECT
@@ -34,12 +21,6 @@ exports.getAllUsers = async (req, res) => {
         ORDER BY is_approved ASC, name ASC`,
       [ano_id]
     );
-
-    // --- START DEBUG LOGS ---
-    // Log how many rows the database returned for that ano_id
-    console.log(`➡️ Database returned ${result.rows.length} rows.`);
-    // --- END DEBUG LOGS ---
-
     return res.json(result.rows);
   } catch (err) {
     console.error('[Get All Users Error]', err);
@@ -97,7 +78,6 @@ exports.approveUser = async (req, res) => {
   } catch (err) {
     // If any error occurs, roll back the entire transaction.
     await client.query('ROLLBACK');
-    console.error('[Approve User Error]', err);
     return res.status(500).json({ msg: 'Database error while approving cadet.' });
   } finally {
     // ALWAYS release the client back to the pool.
