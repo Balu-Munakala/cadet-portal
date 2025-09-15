@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import styles from './ManageUsersSection.module.css';
 
-export default function ManageUsersSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
+export default function ManageUsersSection({ apiBaseUrl = process.env.REACT_APP_API_URL }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null); // { type: 'error'|'success', text: '' }
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({});
 
-  useEffect(() => {
-    fetchUsers();
-  }, [apiBaseUrl]);
-
-  async function fetchUsers() {
+  // Use useCallback to memoize the fetchUsers function
+  const fetchUsers = useCallback(async () => {
     setLoading(true);
     setMessage(null);
     try {
@@ -31,61 +28,52 @@ export default function ManageUsersSection({ apiBaseUrl = process.env.REACT_APP_
     } finally {
       setLoading(false);
     }
-  }
+  }, [apiBaseUrl]);
 
-  async function handleApprove(userId) {
-    setModalContent({
-      title: 'Approve User',
-      message: 'Are you sure you want to approve this cadet?',
-      onConfirm: async () => {
-        try {
-          const res = await fetch(`${apiBaseUrl}/api/admin/manage-users/approve/${userId}`, {
-            method: 'PUT',
-            credentials: 'include',
-          });
-          if (!res.ok) {
-            const errJson = await res.json();
-            throw new Error(errJson.msg || `HTTP ${res.status}`);
-          }
-          setMessage({ type: 'success', text: 'User approved successfully.' });
-          fetchUsers();
-          setShowModal(false);
-        } catch (err) {
-          console.error('[Approve User Error]', err);
-          setMessage({ type: 'error', text: 'Failed to approve user.' });
-          setShowModal(false);
-        }
-      }
-    });
-    setShowModal(true);
-  }
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
-  async function handleDelete(userId) {
-    setModalContent({
-      title: 'Reject User',
-      message: 'Are you sure you want to reject and delete this user? This action cannot be undone.',
-      onConfirm: async () => {
-        try {
-          const res = await fetch(`${apiBaseUrl}/api/admin/manage-users/${userId}`, {
-            method: 'DELETE',
-            credentials: 'include',
-          });
-          if (!res.ok) {
-            const errJson = await res.json();
-            throw new Error(errJson.msg || `HTTP ${res.status}`);
-          }
-          setMessage({ type: 'success', text: 'User deleted successfully.' });
-          fetchUsers();
-          setShowModal(false);
-        } catch (err) {
-          console.error('[Delete User Error]', err);
-          setMessage({ type: 'error', text: 'Failed to delete user.' });
-          setShowModal(false);
-        }
+  const handleAction = async (actionType, userId) => {
+    const isApprove = actionType === 'approve';
+    const url = isApprove 
+      ? `${apiBaseUrl}/api/admin/manage-users/approve/${userId}` 
+      : `${apiBaseUrl}/api/admin/manage-users/${userId}`;
+    const method = isApprove ? 'PUT' : 'DELETE';
+
+    try {
+      const res = await fetch(url, {
+        method,
+        credentials: 'include',
+      });
+      const resJson = await res.json();
+      if (!res.ok) {
+        throw new Error(resJson.msg || `HTTP ${res.status}`);
       }
-    });
+      setMessage({ type: 'success', text: resJson.msg });
+      fetchUsers(); // Re-fetch the list to show updated data
+    } catch (err) {
+      console.error(`[${actionType} User Error]`, err);
+      setMessage({ type: 'error', text: `Failed to ${actionType} user.` });
+    } finally {
+      setShowModal(false);
+    }
+  };
+
+  const openConfirmationModal = (action, user) => {
+    let title, message, onConfirm;
+    if (action === 'approve') {
+      title = 'Approve User';
+      message = `Are you sure you want to approve ${user.name}?`;
+      onConfirm = () => handleAction('approve', user.id);
+    } else { // 'delete' or 'reject'
+      title = user.is_approved ? 'Delete User' : 'Reject User';
+      message = `Are you sure you want to delete ${user.name}? This action cannot be undone.`;
+      onConfirm = () => handleAction('delete', user.id);
+    }
+    setModalContent({ title, message, onConfirm });
     setShowModal(true);
-  }
+  };
 
   const pendingUsers = users.filter((u) => u.is_approved === 0);
   const approvedUsers = users.filter((u) => u.is_approved === 1);
@@ -95,16 +83,12 @@ export default function ManageUsersSection({ apiBaseUrl = process.env.REACT_APP_
       <h2>Manage Cadet Registrations</h2>
 
       {message && (
-        <div
-          className={`${styles.message} ${
-            message.type === 'error' ? styles.error : styles.success
-          }`}
-        >
+        <div className={`${styles.message} ${message.type === 'error' ? styles.error : styles.success}`}>
           {message.text}
         </div>
       )}
 
-      {loading && <p>Loading cadet list…</p>}
+      {loading && <p className={styles.loading}>Loading cadet list…</p>}
 
       {!loading && (
         <>
@@ -130,18 +114,10 @@ export default function ManageUsersSection({ apiBaseUrl = process.env.REACT_APP_
                         <td>{user.email}</td>
                         <td>{user.contact || '—'}</td>
                         <td className={styles.actions}>
-                          <button
-                            className={styles.approveBtn}
-                            onClick={() => handleApprove(user.id)}
-                            title="Approve User"
-                          >
+                          <button className={styles.approveBtn} onClick={() => openConfirmationModal('approve', user)} title="Approve User">
                             <FaCheckCircle /> Approve
                           </button>
-                          <button
-                            className={styles.deleteBtn}
-                            onClick={() => handleDelete(user.id)}
-                            title="Reject User"
-                          >
+                          <button className={styles.deleteBtn} onClick={() => openConfirmationModal('delete', user)} title="Reject User">
                             <FaTimesCircle /> Reject
                           </button>
                         </td>
@@ -151,7 +127,7 @@ export default function ManageUsersSection({ apiBaseUrl = process.env.REACT_APP_
                 </table>
               </div>
             ) : (
-              <p>No pending cadets.</p>
+              <p className={styles.noData}>No pending cadets.</p>
             )}
           </section>
 
@@ -177,11 +153,7 @@ export default function ManageUsersSection({ apiBaseUrl = process.env.REACT_APP_
                         <td>{user.email}</td>
                         <td>{user.contact || '—'}</td>
                         <td className={styles.actions}>
-                          <button
-                            className={styles.deleteBtn}
-                            onClick={() => handleDelete(user.id)}
-                            title="Delete User"
-                          >
+                          <button className={styles.deleteBtn} onClick={() => openConfirmationModal('delete', user)} title="Delete User">
                             Delete
                           </button>
                         </td>
@@ -191,7 +163,7 @@ export default function ManageUsersSection({ apiBaseUrl = process.env.REACT_APP_
                 </table>
               </div>
             ) : (
-              <p>No approved cadets.</p>
+              <p className={styles.noData}>No approved cadets.</p>
             )}
           </section>
         </>

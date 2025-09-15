@@ -11,7 +11,6 @@ const DashboardSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('API Base URL is:', apiBaseUrl); 
     const fetchInitialData = async () => {
       try {
         const [profileRes, picRes, notificationsRes] = await Promise.all([
