@@ -5,22 +5,41 @@ const pool = require('../config/db');
  * Return all cadet users whose `ano_id` matches the logged-in ANO.
  * This function was already well-written and requires no changes.
  */
+// In controllers/manageUsersController.js
+
 exports.getAllUsers = async (req, res) => {
+  // --- START DEBUG LOGS ---
+  console.log('--- ✅ GET /api/admin/manage-users endpoint was HIT ---');
+
   if (req.user.userType !== 'admin') {
+    console.log('⛔️ Access Denied: User is not an admin.');
     return res.status(403).json({ msg: 'Only ANOs may manage cadet registrations.' });
   }
 
+  // Log the entire authenticated user object to see all details
+  console.log('👤 Authenticated User (req.user):', req.user);
+
   const ano_id = req.user.ano_id;
+
+  // Log the specific ano_id being used for the database query
+  console.log(`🔎 Querying database for users with ano_id: '${ano_id}'`);
+  // --- END DEBUG LOGS ---
 
   try {
     const result = await pool.query(
       `SELECT
-          id, regimental_number, name, email, contact, is_approved
+          id, regimental_number, name, is_approved
         FROM users
         WHERE ano_id = $1
         ORDER BY is_approved ASC, name ASC`,
       [ano_id]
     );
+
+    // --- START DEBUG LOGS ---
+    // Log how many rows the database returned for that ano_id
+    console.log(`➡️ Database returned ${result.rows.length} rows.`);
+    // --- END DEBUG LOGS ---
+
     return res.json(result.rows);
   } catch (err) {
     console.error('[Get All Users Error]', err);
