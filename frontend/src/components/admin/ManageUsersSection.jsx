@@ -75,8 +75,8 @@ export default function ManageUsersSection({ apiBaseUrl = process.env.REACT_APP_
     setShowModal(true);
   };
 
-  const pendingUsers = users.filter((u) => u.is_approved === 0);
-  const approvedUsers = users.filter((u) => u.is_approved === 1);
+  const pendingUsers = users.filter((u) => !u.is_approved);
+  const approvedUsers = users.filter((u) => u.is_approved);
 
   return (
     <div className={styles.container}>
