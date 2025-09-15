@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import styles from './AdminNotifications.module.css';
+import styles from './NotificationsSection.module.css';
 
 export default function AdminNotifications({ apiBaseUrl = process.env.REACT_APP_API_URL }) {
   // State for the creation form
@@ -19,7 +19,20 @@ export default function AdminNotifications({ apiBaseUrl = process.env.REACT_APP_
       const res = await fetch(`${apiBaseUrl}/api/notifications/admin`, {
         credentials: 'include',
       });
-      if (!res.ok) throw new Error('Failed to fetch notifications.');
+
+      // --- START DEBUG LOGS ---
+      console.log('API Response Status:', res.status, res.statusText);
+
+      // Check if the response is not OK (e.g., 404, 500)
+      if (!res.ok) {
+        // Log the response as plain text to see the HTML error page
+        const errorText = await res.text();
+        console.error('API returned an error page (HTML):', errorText);
+        // Throw an error with the status to be caught below
+        throw new Error(`Failed to fetch notifications. Server responded with ${res.status}`);
+      }
+      // --- END DEBUG LOGS ---
+
       const data = await res.json();
       setNotifications(data);
     } catch (err) {

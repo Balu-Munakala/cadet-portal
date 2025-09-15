@@ -19,7 +19,12 @@ router.post('/', authenticate, notificationsController.createCadetNotification);
  * @desc    Fetch all notifications sent by the logged-in admin
  * @access  Private (Admin)
  */
-router.get('/admin', authenticate, notificationsController.getAdminNotifications);
+router.get('/admin', authenticate, (req, res, next) => {
+  // --- DEBUG LOG ---
+  console.log('✅ HIT: GET /api/notifications/admin route');
+  // --- END DEBUG LOG ---
+  notificationsController.getAdminNotifications(req, res, next);
+});
 
 /**
  * @route   GET /api/notifications/user

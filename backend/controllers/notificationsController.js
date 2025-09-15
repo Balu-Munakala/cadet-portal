@@ -60,6 +60,9 @@ exports.createCadetNotification = async (req, res) => {
  * Returns a distinct list of notifications sent by the logged-in admin.
  */
 exports.getAdminNotifications = async (req, res) => {
+  // --- DEBUG LOG ---
+  console.log('✅ EXECUTING: getAdminNotifications controller function');
+  // --- END DEBUG LOG ---
   if (req.user.userType !== 'admin') {
     return res.status(403).json({ msg: 'Only admins may view their notifications.' });
   }
