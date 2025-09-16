@@ -16,18 +16,20 @@ exports.searchAll = async (req, res) => {
   try {
     // 1) Search cadets (users)
     const cadetResult = await pool.query(
-      `SELECT 'user' AS "type", regimental_number AS id, name, email, contact
+      `SELECT 'user' AS "type", regimental_number AS id, name, email, contact, 
+              regimental_number, ano_id, is_approved
        FROM users
-       WHERE name ILIKE $1 OR email ILIKE $2 OR regimental_number ILIKE $3`,
-      [wildcard, wildcard, wildcard]
+       WHERE name ILIKE $1 OR email ILIKE $2 OR regimental_number ILIKE $3 OR contact ILIKE $4`,
+      [wildcard, wildcard, wildcard, wildcard]
     );
 
     // 2) Search admins
     const adminResult = await pool.query(
-      `SELECT 'admin' AS "type", ano_id AS id, name, email, contact
+      `SELECT 'admin' AS "type", ano_id AS id, name, email, contact, 
+              ano_id, role, is_approved
        FROM admins
-       WHERE name ILIKE $1 OR email ILIKE $2 OR ano_id ILIKE $3`,
-      [wildcard, wildcard, wildcard]
+       WHERE name ILIKE $1 OR email ILIKE $2 OR ano_id ILIKE $3 OR contact ILIKE $4`,
+      [wildcard, wildcard, wildcard, wildcard]
     );
 
     // 3) Search masters (just in case)
@@ -39,7 +41,7 @@ exports.searchAll = async (req, res) => {
     );
 
     return res.json({ 
-        cadets: cadetResult.rows, 
+        users: cadetResult.rows, 
         admins: adminResult.rows, 
         masters: masterResult.rows 
     });
