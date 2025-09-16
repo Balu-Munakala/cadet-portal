@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ManageUsers.module.css';
-import { FaUserCheck } from 'react-icons/fa';
+import { FaUserCheck, FaUserTimes, FaTrash } from 'react-icons/fa';
 
-export default function ManageUsers({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
+export default function ManageUsers({ apiBaseUrl = process.env.REACT_APP_API_URL }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -13,7 +13,7 @@ export default function ManageUsers({ apiBaseUrl = process.env.REACT_APP_API_URL
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`${apiBaseUrl}/api/master/users`, {
+      const res = await fetch(`${apiBaseUrl}/api/master/manage-users`, {
         credentials: 'include'
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -31,14 +31,14 @@ export default function ManageUsers({ apiBaseUrl = process.env.REACT_APP_API_URL
     fetchUsers();
   }, [apiBaseUrl]);
 
-  const toggleApprove = async (userId, currentlyApproved) => {
+  const toggleApprove = async (regimentalNumber, currentlyApproved) => {
     setModalContent({
       title: 'Confirm Action',
       message: `Are you sure you want to ${currentlyApproved ? 'disapprove' : 'approve'} this cadet?`,
       onConfirm: async () => {
         try {
-          const endpoint = `${apiBaseUrl}/api/users/${userId}/${
-            currentlyApproved ? 'disapprove' : 'approve'
+          const endpoint = `${apiBaseUrl}/api/master/manage-users/${regimentalNumber}/${
+            currentlyApproved ? 'disable' : 'enable'
           }`;
     
           const res = await fetch(endpoint, {
@@ -51,6 +51,29 @@ export default function ManageUsers({ apiBaseUrl = process.env.REACT_APP_API_URL
         } catch (err) {
           console.error('[ManageUsers Toggle Approve] ', err);
           setError('Action failed.');
+          setShowModal(false);
+        }
+      }
+    });
+    setShowModal(true);
+  };
+
+  const deleteUser = async (regimentalNumber) => {
+    setModalContent({
+      title: 'Confirm Deletion',
+      message: 'Are you sure you want to permanently delete this cadet? This action cannot be undone.',
+      onConfirm: async () => {
+        try {
+          const res = await fetch(`${apiBaseUrl}/api/master/manage-users/${regimentalNumber}`, {
+            method: 'DELETE',
+            credentials: 'include',
+          });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          fetchUsers();
+          setShowModal(false);
+        } catch (err) {
+          console.error('[ManageUsers Delete] ', err);
+          setError('Deletion failed.');
           setShowModal(false);
         }
       }
@@ -75,28 +98,43 @@ export default function ManageUsers({ apiBaseUrl = process.env.REACT_APP_API_URL
                 <th>Regimental No.</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Contact</th>
                 <th>ANO ID</th>
                 <th>Approved</th>
+                <th>Created At</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {users.map((u) => (
-                <tr key={u.id}>
+                <tr key={u.regimental_number}>
                   <td>{u.regimental_number}</td>
                   <td>{u.name}</td>
                   <td>{u.email}</td>
-                  <td>{u.ano_id}</td>
+                  <td>{u.contact || 'N/A'}</td>
+                  <td>{u.ano_id || 'N/A'}</td>
                   <td className={u.is_approved ? styles.statusApproved : styles.statusDisapproved}>
                     {u.is_approved ? 'Yes' : 'No'}
                   </td>
+                  <td>{new Date(u.created_at).toLocaleDateString()}</td>
                   <td>
-                    <button
-                      className={styles.actionBtn}
-                      onClick={() => toggleApprove(u.id, u.is_approved)}
-                    >
-                      <FaUserCheck /> {u.is_approved ? 'Disapprove' : 'Approve'}
-                    </button>
+                    <div className={styles.actionButtons}>
+                      <button
+                        className={u.is_approved ? styles.disableBtn : styles.approveBtn}
+                        onClick={() => toggleApprove(u.regimental_number, u.is_approved)}
+                        title={u.is_approved ? 'Disapprove' : 'Approve'}
+                      >
+                        {u.is_approved ? <FaUserTimes /> : <FaUserCheck />}
+                        {u.is_approved ? ' Disapprove' : ' Approve'}
+                      </button>
+                      <button
+                        className={styles.deleteBtn}
+                        onClick={() => deleteUser(u.regimental_number)}
+                        title="Delete"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

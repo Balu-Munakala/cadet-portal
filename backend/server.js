@@ -61,7 +61,7 @@ app.use('/api/notifications', require('./routes/notifications'));
 
 // Master-specific sub-routes
 app.use('/api/master/manage-admins', require('./routes/master/manageAdmins'));
-app.use('/api/master/manage-users', require('./routes/manageUsers'));
+app.use('/api/master/manage-users', require('./routes/master/manageUsers'));
 app.use('/api/master/notification-manager', require('./routes/master/notificationManager'));
 app.use('/api/master/platform-config', require('./routes/master/platformConfig'));
 app.use('/api/master/global-search', require('./routes/master/globalSearch'));
