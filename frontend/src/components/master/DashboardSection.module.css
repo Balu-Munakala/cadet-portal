@@ -1,164 +1,414 @@
-/*
- * Modern and professional CSS for the Master Dashboard's main section.
- * Designed with a sleek, dark-themed aesthetic and interactive elements.
- */
+/* ================== Master Dashboard Section - Premium Executive Theme ================== */
+/* Ultimate executive-level dashboard with luxury styling and premium effects */
 
 .profileContainer {
-  padding: 2rem;
-  background: #111;
-  color: #fff;
-  min-height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
+  --master-primary: #0d1b2a;
+  --master-secondary: #1e3a8a;
+  --master-accent: #6366f1;
+  --master-gold: #f59e0b;
+  --master-platinum: #e5e7eb;
+  --master-light: #f8fafc;
+  --master-dark: #1f2937;
+  --master-gradient: linear-gradient(135deg, var(--master-primary) 0%, var(--master-secondary) 50%, var(--master-accent) 100%);
+  --master-shadow: 0 25px 50px rgba(13, 27, 42, 0.3);
+  --master-glow: 0 0 30px rgba(99, 102, 241, 0.3);
+  --master-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --master-border-radius: 2rem;
+  
+  width: 100%;
+  padding: 3rem;
+  background: var(--master-gradient);
+  color: var(--master-light);
+  min-height: calc(100vh - 12rem);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  border-radius: var(--master-border-radius);
+  border: 3px solid rgba(99, 102, 241, 0.3);
+  box-shadow: var(--master-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.profileContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.profileContainer::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: linear-gradient(45deg, var(--master-gold), var(--master-accent), var(--master-gold));
+  border-radius: var(--master-border-radius);
+  z-index: -1;
+  opacity: 0.6;
+  animation: borderPulse 3s ease-in-out infinite;
+}
+
+@keyframes borderPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 .profileHeader {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .profilePictureContainer {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 12rem;
+  height: 12rem;
   border-radius: 50%;
-  border: 3px solid #00ffcc; /* Neon glow effect */
-  box-shadow: 0 0 15px #00ffcc;
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
+  border: 4px solid var(--master-gold);
+  box-shadow: 
+    var(--master-shadow),
+    var(--master-glow),
+    inset 0 0 0 4px rgba(255, 255, 255, 0.1);
+  margin-bottom: 2rem;
+  transition: all var(--master-transition);
   overflow: hidden;
+  background: linear-gradient(135deg, var(--master-gold) 0%, var(--master-accent) 100%);
 }
 
 .profilePictureContainer:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px #00ffcc;
+  transform: scale(1.1) rotate(3deg);
+  box-shadow: 
+    0 30px 60px rgba(13, 27, 42, 0.4),
+    0 0 50px rgba(245, 158, 11, 0.6),
+    inset 0 0 0 4px rgba(255, 255, 255, 0.2);
+  border-color: var(--master-accent);
 }
 
 .profilePhoto {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: all var(--master-transition);
+}
+
+.profilePictureContainer:hover .profilePhoto {
+  transform: scale(1.15);
 }
 
 .fullName {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 2.75rem;
+  font-weight: 800;
   margin-top: 1rem;
-  color: #00ffcc;
-  text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+  background: linear-gradient(135deg, var(--master-light) 0%, var(--master-gold) 50%, var(--master-accent) 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  animation: textShimmer 3s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes textShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.fullName::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4rem;
+  height: 0.25rem;
+  background: linear-gradient(90deg, var(--master-gold), var(--master-accent), var(--master-gold));
+  border-radius: 0.125rem;
+  box-shadow: var(--master-glow);
 }
 
 .profileDetails {
   text-align: center;
   margin-bottom: 3rem;
-  color: #ccc;
-  font-size: 1rem;
+  color: var(--master-platinum);
+  font-size: 1.125rem;
+  position: relative;
+  z-index: 1;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(99, 102, 241, 0.2);
 }
 
 .profileDetails p {
-  margin: 0.5rem 0;
-  color: #aaa;
+  margin: 0.75rem 0;
+  color: var(--master-platinum);
+  font-weight: 500;
 }
 
 .profileDetails strong {
-  color: #fff;
-  font-weight: 600;
+  color: var(--master-light);
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
 }
 
 .quickAccessCards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
   margin-bottom: 3rem;
+  position: relative;
+  z-index: 1;
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(0, 255, 204, 0.2);
-  padding: 1.5rem;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(99, 102, 241, 0.3);
+  padding: 2rem;
+  border-radius: 1.5rem;
   text-align: center;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
+  transition: all var(--master-transition);
+  backdrop-filter: blur(15px);
   cursor: pointer;
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
+  box-shadow: var(--master-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.1), transparent);
+  transition: left 0.6s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+  transform: translateY(-1rem) scale(1.03);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 30px 60px rgba(13, 27, 42, 0.4),
+    var(--master-glow);
+  border-color: var(--master-gold);
+}
+
+.card:hover::before {
+  left: 100%;
 }
 
 .cardIcon {
-  font-size: 2rem;
-  color: #00ffcc;
-  margin-bottom: 1rem;
-  text-shadow: 0 0 8px #00ffcc;
+  font-size: 3rem;
+  color: var(--master-gold);
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
 .card h3 {
-  margin: 0.5rem 0;
-  color: #fff;
-  font-weight: 600;
+  margin: 1rem 0;
+  color: var(--master-light);
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
 }
 
 .card p {
-  font-size: 0.9rem;
-  color: #aaa;
+  font-size: 1rem;
+  color: var(--master-platinum);
+  font-weight: 500;
+  line-height: 1.6;
 }
 
 .notificationPanel {
-  margin-top: 2rem;
+  margin-top: 3rem;
+  position: relative;
+  z-index: 1;
 }
 
 .notifications {
-  background-color: #1a1a1a;
-  padding: 1.5rem;
-  border-radius: 10px;
-  border: 1px solid #00ffcc;
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
-  max-height: 300px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  border: 2px solid rgba(99, 102, 241, 0.3);
+  box-shadow: var(--master-shadow);
+  max-height: 25rem;
   overflow-y: auto;
+  backdrop-filter: blur(15px);
+  
+  /* Hide scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.notifications::-webkit-scrollbar {
+  display: none;
 }
 
 .notificationItem {
-  padding: 0.75rem;
-  border-bottom: 1px solid #333;
-  color: #eee;
-  font-size: 0.9rem;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+  color: var(--master-light);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.notificationItem:hover {
+  background: rgba(99, 102, 241, 0.1);
+  transform: translateX(0.5rem);
 }
 
 .notificationItem:last-child {
   border-bottom: none;
+  margin-bottom: 0;
 }
 
 .noNotifications {
-  color: #666;
+  color: var(--master-platinum);
   text-align: center;
-  padding: 1rem;
+  padding: 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  opacity: 0.8;
 }
 
 .searchBar {
   margin-top: 3rem;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .searchBar input {
-  padding: 0.75rem 1.5rem;
-  border-radius: 30px;
-  border: 1px solid #00ffcc;
-  background: rgba(0, 0, 0, 0.4);
-  color: #00ffcc;
-  font-size: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  border: 2px solid rgba(99, 102, 241, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--master-light);
+  font-size: 1.125rem;
+  font-weight: 600;
   outline: none;
   width: 100%;
-  max-width: 400px;
-  transition: all 0.3s ease;
+  max-width: 30rem;
+  transition: all var(--master-transition);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--master-shadow);
+  text-align: center;
+}
+
+.searchBar input::placeholder {
+  color: var(--master-platinum);
+  opacity: 0.7;
 }
 
 .searchBar input:focus {
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
-  background: #000;
+  box-shadow: 
+    0 0 0 0.25rem rgba(99, 102, 241, 0.25),
+    var(--master-glow);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--master-gold);
+  transform: translateY(-0.25rem);
+}
+
+/* ================== Responsive Design ================== */
+@media (max-width: 768px) {
+  .profileContainer {
+    padding: 2rem;
+  }
+
+  .profilePictureContainer {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .fullName {
+    font-size: 2.25rem;
+  }
+
+  .quickAccessCards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .cardIcon {
+    font-size: 2.5rem;
+  }
+
+  .notifications {
+    max-height: 20rem;
+  }
+
+  .searchBar input {
+    max-width: 25rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profileContainer {
+    padding: 1.5rem;
+  }
+
+  .profilePictureContainer {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .fullName {
+    font-size: 1.875rem;
+  }
+
+  .card {
+    padding: 1.25rem;
+  }
+
+  .cardIcon {
+    font-size: 2rem;
+  }
+
+  .card h3 {
+    font-size: 1.125rem;
+  }
+
+  .profileDetails {
+    padding: 1.25rem;
+    font-size: 1rem;
+  }
+
+  .searchBar input {
+    max-width: 20rem;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+  }
 }

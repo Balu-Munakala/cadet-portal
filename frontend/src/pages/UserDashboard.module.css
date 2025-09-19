@@ -1,15 +1,30 @@
-/*
- * Modern and responsive CSS for the Cadet User Dashboard.
- * Focuses on a clean aesthetic, intuitive navigation, and subtle interactivity.
- */
+/* Optimized Military-themed CSS for cadet portal user dashboard */
 
 /* ================== Layout Base ================== */
 .dashboard {
+  --primary-gold: #d4af37;
+  --dark-blue: #1a365d;
+  --medium-blue: #2c5282;
+  --dark-gray: #2d3748;
+  --light-gray: #f7fafc;
+  --white: #ffffff;
+  --text-dark: #2d3748;
+  --text-light: #718096;
+  --border-color: #e2e8f0;
+  --success-green: #38a169;
+  --error-red: #e53e3e;
+  --transition: 0.2s ease;
+  --border-radius: 8px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f5f7fa; /* Light, modern background */
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, var(--light-gray) 0%, #edf2f7 100%);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 /* ================== Header ================== */
@@ -17,13 +32,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffffff;
-  color: #333;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--white);
+  padding: 1rem 2rem;
+  box-shadow: var(--shadow);
+  border-bottom: 3px solid var(--primary-gold);
   position: sticky;
   top: 0;
   z-index: 100;
+  flex-shrink: 0;
 }
 
 .headerLeft {
@@ -36,96 +52,139 @@
   height: 45px;
   width: auto;
   object-fit: contain;
+  border-radius: 4px;
+  border: 1px solid var(--primary-gold);
+  padding: 4px;
 }
 
 .headerTitle {
   font-size: 1.5rem;
-  color: #333;
-  font-weight: 600;
+  color: var(--text-dark);
+  font-weight: 700;
   margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .logoutBtn {
-  font-size: 1.2rem;
-  background: none;
-  border: none;
-  color: #999;
+  background: rgba(212, 175, 55, 0.1);
+  border: 2px solid var(--primary-gold);
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  color: var(--text-dark);
+  font-weight: 600;
   cursor: pointer;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: all var(--transition);
+  text-transform: uppercase;
+  font-size: 0.9rem;
 }
 
 .logoutBtn:hover {
-  color: #d9534f;
-  transform: scale(1.1);
+  background: var(--primary-gold);
+  color: var(--white);
+  transform: translateY(-1px);
 }
 
 /* ================== Main Layout ================== */
 .mainContainer {
   display: flex;
   flex: 1;
+  overflow: hidden;
 }
 
 /* ================== Sidebar ================== */
 .sidebar {
-  width: 250px;
-  background-color: #ffffff;
-  padding: 2rem 1.5rem;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
+  width: 260px;
+  background: var(--white);
+  padding: 2rem 1rem;
+  box-shadow: var(--shadow);
+  border-right: 3px solid var(--primary-gold);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  overflow-y: auto;
+  flex-shrink: 0;
+  height: calc(100vh - 70px);
+  
+  /* Hide scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none; /* WebKit */
 }
 
 .sidebar h2 {
-  font-size: 1.25rem;
-  color: #555;
+  font-size: 1.2rem;
+  color: var(--text-dark);
   margin-bottom: 1.5rem;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--primary-gold);
+  padding-bottom: 0.5rem;
+  flex-shrink: 0;
 }
 
 .sidebar button {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border: none;
-  background-color: transparent;
-  color: #555;
-  font-size: 1rem;
+  padding: 0.875rem 1rem;
+  border: 2px solid transparent;
+  background: transparent;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  font-weight: 600;
   text-align: left;
   cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.2s ease;
+  border-radius: var(--border-radius);
+  transition: all var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
 }
 
 .sidebar button:hover,
 .sidebar button:focus {
-  background-color: #e6f7ff;
-  color: #007467;
-  transform: translateX(5px);
+  background: rgba(212, 175, 55, 0.1);
+  border-color: var(--primary-gold);
+  transform: translateX(4px);
   outline: none;
 }
 
 .sidebar button.active {
-  background-color: #007467;
-  color: #ffffff;
-  font-weight: 600;
+  background: var(--primary-gold);
+  color: var(--white);
+  border-color: var(--primary-gold);
+  transform: translateX(4px);
 }
 
-/* ================== Main Content & Utilities ================== */
+/* ================== Main Content ================== */
 .content {
-  flex-grow: 1;
+  flex: 1;
   padding: 2rem;
-  background-color: #f5f7fa;
+  background: var(--light-gray);
   overflow-y: auto;
+  height: calc(100vh - 70px);
+  
+  /* Hide scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.content::-webkit-scrollbar {
+  display: none; /* WebKit */
 }
 
 .profileCard {
-  background: #ffffff;
-  padding: 2rem;
+  background: var(--white);
+  padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  max-width: 450px;
-  margin: auto;
+  box-shadow: var(--shadow);
+  border: 2px solid var(--primary-gold);
+  max-width: 500px;
+  margin: 0 auto;
   text-align: center;
 }
 
@@ -133,45 +192,65 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   object-fit: cover;
-  border: 4px solid #007467;
+  border: 4px solid var(--primary-gold);
+  box-shadow: var(--shadow);
 }
 
 .sectionCard {
-  background: white;
+  background: var(--white);
   padding: 2rem;
-  border-radius: 10px;
-  max-width: 800px;
-  margin: auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: var(--shadow);
+}
+
+.sectionCard h3 {
+  color: var(--text-dark);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--primary-gold);
+  padding-bottom: 0.5rem;
 }
 
 .loading {
   text-align: center;
   margin-top: 5rem;
   font-size: 1.2rem;
-  color: #999;
+  color: var(--text-light);
+  font-weight: 600;
 }
 
 .toggleBtn {
-  background-color: #007467;
-  color: white;
-  font-size: 22px;
+  background: var(--primary-gold);
+  color: var(--white);
   border: none;
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  border-radius: 6px;
-  padding: 0.5rem;
+  transition: all var(--transition);
 }
 
-/* Modal for confirmation/alerts */
+.toggleBtn:hover {
+  background: var(--dark-blue);
+  transform: translateY(-1px);
+}
+
+/* ================== Modal ================== */
 .modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -180,21 +259,21 @@
 }
 
 .modal {
-  background-color: #fff;
-  color: #333;
+  background: var(--white);
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 3px solid var(--primary-gold);
   text-align: center;
   width: 90%;
   max-width: 400px;
-  border: 1px solid #ddd;
 }
 
 .modal p {
   margin-bottom: 1.5rem;
   font-size: 1.1rem;
-  line-height: 1.5;
+  color: var(--text-dark);
+  font-weight: 500;
 }
 
 .modalActions {
@@ -205,49 +284,59 @@
 
 .modalActions button {
   padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  border: 2px solid;
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
   font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .modalActions button:first-child {
-  background-color: #e0e0e0;
-  color: #555;
+  background: transparent;
+  color: var(--text-dark);
+  border-color: var(--border-color);
 }
 
 .modalActions button:first-child:hover {
-  background-color: #ccc;
+  background: var(--border-color);
 }
 
 .modalActions button:last-child {
-  background-color: #007467;
-  color: #fff;
+  background: var(--primary-gold);
+  color: var(--white);
+  border-color: var(--primary-gold);
 }
 
 .modalActions button:last-child:hover {
-  background-color: #005f56;
+  background: var(--dark-blue);
+  border-color: var(--dark-blue);
   transform: translateY(-1px);
 }
 
 /* ================== Responsive Design ================== */
 @media (max-width: 768px) {
+  .dashboard {
+    overflow: auto;
+  }
+  
   .header {
     flex-direction: column;
     padding: 1rem;
-    position: relative;
-    height: auto;
+    gap: 1rem;
   }
+  
   .headerLeft {
     width: 100%;
     justify-content: space-between;
   }
+  
   .headerTitle {
-    font-size: 1.25rem;
-    margin-top: 0.75rem;
+    font-size: 1.2rem;
   }
+  
   .sidebar {
     width: 100%;
     position: fixed;
@@ -255,17 +344,95 @@
     top: 0;
     left: 0;
     transform: translateX(-100%);
-    box-shadow: none;
-    z-index: 150;
-    padding-top: 5rem;
+    z-index: 200;
+    padding-top: 3rem;
+    transition: transform 0.3s ease;
   }
+  
   .sidebarOpen .sidebar {
     transform: translateX(0);
   }
+  
   .mainContainer {
     flex-direction: column;
   }
+  
   .content {
     padding: 1rem;
+    height: auto;
+  }
+  
+  .profileCard,
+  .sectionCard {
+    padding: 1.5rem;
+    margin: 0.5rem;
+  }
+  
+  .toggleBtn {
+    padding: 0.75rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0.75rem;
+  }
+  
+  .logo {
+    height: 35px;
+  }
+  
+  .headerTitle {
+    font-size: 1rem;
+  }
+  
+  .sidebar button {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .content {
+    padding: 0.5rem;
+  }
+  
+  .profileCard,
+  .sectionCard {
+    padding: 1rem;
+  }
+  
+  .profileImg {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .modal {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .modalActions {
+    flex-direction: column;
+  }
+  
+  .modalActions button {
+    width: 100%;
+  }
+}
+
+/* ================== Performance Optimizations ================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .logo {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
   }
 }

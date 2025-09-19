@@ -1,66 +1,385 @@
-/*
- * Modern and responsive CSS for the System Reports section.
- * Designed for a sleek, dark-themed aesthetic with a clean report layout.
- */
+/* SystemReports.module.css - Premium Master Theme */
+:root {
+  --master-primary: #0d1b2a;
+  --master-secondary: #1e3a8a;
+  --master-accent: #6366f1;
+  --master-luxury: #f59e0b;
+  --master-success: #059669;
+  --master-danger: #dc2626;
+  --master-warning: #d97706;
+  --master-white: #ffffff;
+  --master-light: #f8fafc;
+  --master-gray: #64748b;
+  --master-dark: #1e293b;
+}
 
 .container {
   padding: 2rem;
-  color: #e0e0e0;
-  font-family: 'Segoe UI', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, 
+    rgba(13, 27, 42, 0.95) 0%, 
+    rgba(30, 58, 138, 0.9) 50%, 
+    rgba(99, 102, 241, 0.85) 100%
+  );
+  border-radius: 20px;
+  min-height: 600px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  backdrop-filter: blur(20px);
+  color: var(--master-white);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--master-accent), var(--master-luxury), var(--master-secondary), var(--master-accent));
+  border-radius: 22px;
+  z-index: -1;
+  animation: borderPulse 3s ease-in-out infinite;
+}
+
+@keyframes borderPulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
 }
 
 h2 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  color: #00ffcc;
-  text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+  background: linear-gradient(135deg, var(--master-luxury), var(--master-accent), var(--master-white));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+  position: relative;
+  animation: shimmer 2s ease-in-out infinite;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@keyframes shimmer {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.2); }
 }
 
 .loading,
 .error {
   text-align: center;
-  margin: 2rem;
-  font-style: italic;
-  font-size: 1.1rem;
+  padding: 3rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  margin: 2rem 0;
+}
+
+.loading {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(245, 158, 11, 0.1));
+  color: var(--master-accent);
+  border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
 .error {
-  color: #ff6347;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(239, 68, 68, 0.1));
+  color: var(--master-danger);
+  border: 1px solid rgba(220, 38, 38, 0.3);
 }
 
 .reportItem {
   display: flex;
   justify-content: space-between;
-  background-color: #1a1a1a;
-  border: 1px solid rgba(0, 255, 204, 0.2);
-  border-radius: 8px;
-  padding: 1rem 1.5rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+  align-items: center;
+  background: linear-gradient(135deg, 
+    rgba(30, 58, 138, 0.3) 0%, 
+    rgba(99, 102, 241, 0.2) 50%, 
+    rgba(245, 158, 11, 0.1) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(15px);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.reportItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(135deg, var(--master-luxury), var(--master-accent));
+  border-radius: 0 4px 4px 0;
+}
+
+.reportItem::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
 }
 
 .reportItem:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 255, 204, 0.4);
+  transform: translateY(-4px);
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(245, 158, 11, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.reportItem:hover::after {
+  left: 100%;
 }
 
 .label {
-  font-weight: 600;
-  color: #00ffcc;
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, var(--master-luxury), var(--master-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
 }
 
 .value {
-  color: #fff;
-  font-weight: 500;
+  color: var(--master-white);
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 576px) {
+/* Report Categories */
+.reportCategory {
+  margin-bottom: 3rem;
+}
+
+.categoryTitle {
+  background: linear-gradient(135deg, var(--master-accent), var(--master-luxury));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  border-left: 4px solid var(--master-luxury);
+}
+
+/* Status Indicators */
+.statusIndicator {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  backdrop-filter: blur(5px);
+  border: 1px solid;
+  min-width: 100px;
+}
+
+.statusActive {
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.2), rgba(16, 185, 129, 0.1));
+  color: var(--master-success);
+  border-color: rgba(5, 150, 105, 0.3);
+  animation: activePulse 3s ease-in-out infinite;
+}
+
+.statusWarning {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.2), rgba(245, 158, 11, 0.1));
+  color: var(--master-warning);
+  border-color: rgba(217, 119, 6, 0.3);
+  animation: warningPulse 2s ease-in-out infinite;
+}
+
+.statusCritical {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(239, 68, 68, 0.1));
+  color: var(--master-danger);
+  border-color: rgba(220, 38, 38, 0.3);
+  animation: criticalPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes activePulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+@keyframes warningPulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+@keyframes criticalPulse {
+  0%, 100% { opacity: 0.8; box-shadow: 0 0 10px rgba(220, 38, 38, 0.2); }
+  50% { opacity: 1; box-shadow: 0 0 25px rgba(220, 38, 38, 0.4); }
+}
+
+/* Charts and Metrics */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.metricCard {
+  background: linear-gradient(135deg, 
+    rgba(30, 58, 138, 0.2) 0%, 
+    rgba(99, 102, 241, 0.15) 50%, 
+    rgba(245, 158, 11, 0.1) 100%
+  );
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.metricCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.metricValue {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--master-luxury), var(--master-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.metricLabel {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+    margin: 0.5rem;
+    border-radius: 16px;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
   .reportItem {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .metricsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .metricCard {
+    padding: 1.5rem;
+  }
+  
+  .metricValue {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+    margin: 0.25rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+  
+  .reportItem {
+    padding: 1rem;
+  }
+  
+  .loading, .error {
+    padding: 2rem 1rem;
+    font-size: 1.1rem;
+  }
+  
+  .metricCard {
+    padding: 1rem;
+  }
+  
+  .metricValue {
+    font-size: 1.5rem;
+  }
+}
+
+/* Accessibility enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .container::before,
+  h2,
+  .reportItem,
+  .statusActive,
+  .statusWarning,
+  .statusCritical {
+    animation: none;
+  }
+  
+  .reportItem::after {
+    display: none;
+  }
+  
+  .reportItem:hover,
+  .metricCard:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .reportItem,
+  .metricCard {
+    border: 2px solid var(--master-white);
+  }
+  
+  .statusIndicator {
+    border-width: 2px;
   }
 }

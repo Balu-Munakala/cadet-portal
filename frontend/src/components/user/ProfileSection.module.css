@@ -1,134 +1,399 @@
 /*
- * Modern and elegant CSS for the User Profile section on the Dashboard.
- * Focuses on a clean, card-based layout with refined typography and subtle effects.
+ * Military-themed User Profile section for cadet portal users.
+ * Designed for seamless integration with user dashboard layout.
  */
 
 .container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
-  font-family: 'Roboto', sans-serif;
+  --primary-gold: #d4af37;
+  --dark-blue: #1a365d;
+  --dark-gray: #2d3748;
+  --light-gray: #f7fafc;
+  --white: #ffffff;
+  --text-dark: #2d3748;
+  --text-light: #718096;
+  --border-color: #e2e8f0;
+  --bg-light: #f8fafc;
+  --success-green: #38a169;
+  --error-red: #e53e3e;
+  --transition: 0.3s ease;
+  --border-radius: 12px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 2.5rem;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  border: 2px solid var(--border-color);
+  box-shadow: var(--shadow);
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-gold), #b8860b);
+}
+
+.container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  border-color: var(--primary-gold);
 }
 
 h2 {
-  color: #212529; /* A darker, more professional color */
-  margin-bottom: 20px;
-  font-size: 28px;
+  color: var(--text-dark);
+  margin-bottom: 2.5rem;
+  font-size: 2rem;
   text-align: center;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-gold), #b8860b);
+  border-radius: 2px;
 }
 
 .section {
-  margin-bottom: 30px;
+  margin-bottom: 2.5rem;
+  background: var(--white);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--border-color);
+  box-shadow: var(--shadow);
+  transition: all var(--transition);
+}
+
+.section:hover {
+  border-color: var(--primary-gold);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .section h3 {
-  color: #007bff; /* A clean blue for section titles */
-  margin-bottom: 15px;
-  font-size: 22px;
-  border-bottom: 2px solid #007bff;
-  padding-bottom: 10px;
-  font-weight: 500;
+  color: var(--primary-gold);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.section h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--primary-gold);
+  border-radius: 1px;
 }
 
 .form label {
-  font-weight: 500;
-  color: #343a40;
+  font-weight: 600;
+  color: var(--text-dark);
+  display: block;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
 }
 
 input,
 select {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #dee2e6; /* Light gray border */
-  border-radius: 8px;
-  font-size: 16px;
-  background-color: #f8f9fa;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  background: var(--white);
+  transition: all var(--transition);
+  font-family: 'Inter', sans-serif;
+  color: var(--text-dark);
+  font-weight: 500;
+  box-sizing: border-box;
 }
 
 input:focus,
 select:focus {
-  border-color: #007bff;
+  border-color: var(--primary-gold);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  background: var(--white);
 }
 
 input[readonly] {
-  background-color: #e9ecef;
+  background: var(--bg-light);
   cursor: not-allowed;
-  color: #6c757d;
+  color: var(--text-light);
+  border-color: var(--border-color);
+  opacity: 0.8;
 }
 
 .submitBtn {
-  background-color: #007bff; /* Primary button color */
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  background: var(--primary-gold);
+  color: var(--white);
+  padding: 1.25rem 2rem;
+  border: 2px solid var(--primary-gold);
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
   width: 100%;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 20px;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+  transition: all var(--transition);
+  margin-top: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+.submitBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.submitBtn:hover::before {
+  left: 100%;
 }
 
 .submitBtn:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px); /* Subtle lift on hover */
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  background: var(--dark-blue);
+  border-color: var(--dark-blue);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(26, 54, 93, 0.4);
+}
+
+.submitBtn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3);
 }
 
 .submitBtn:disabled {
-  background-color: #cccccc;
+  background: var(--text-light);
+  border-color: var(--text-light);
   cursor: not-allowed;
   box-shadow: none;
+  transform: none;
+  opacity: 0.6;
 }
 
 .pictureSection {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 2.5rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+  border-radius: var(--border-radius);
+  border: 2px solid rgba(212, 175, 55, 0.2);
 }
 
 .pictureSection img {
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #007bff; /* Consistent accent color */
-  margin-bottom: 10px;
-  transition: transform 0.3s ease;
+  border: 4px solid var(--primary-gold);
+  margin-bottom: 1.5rem;
+  transition: all var(--transition);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
 }
 
 .pictureSection img:hover {
   transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+  border-color: #b8860b;
 }
 
 .pictureSection input[type="file"] {
   display: block;
   margin: 0 auto;
+  padding: 1rem;
+  background: var(--white);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: 'Inter', sans-serif;
+}
+
+.pictureSection input[type="file"]:hover {
+  border-color: var(--primary-gold);
+  background: var(--bg-light);
 }
 
 .message {
-  padding: 12px;
-  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
   text-align: center;
-  font-weight: 500;
-  margin-top: 20px;
+  font-weight: 600;
+  margin-top: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow);
 }
 
 .success {
-  background-color: #d4edda;
-  color: #155724;
+  background: rgba(56, 161, 105, 0.1);
+  color: var(--success-green);
+  border: 2px solid rgba(56, 161, 105, 0.3);
 }
 
 .error {
-  background-color: #f8d7da;
-  color: #721c24;
+  background: rgba(229, 62, 62, 0.1);
+  color: var(--error-red);
+  border: 2px solid rgba(229, 62, 62, 0.3);
+}
+
+/* ================== Responsive Design ================== */
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
+  }
+  
+  h2::after {
+    width: 100px;
+  }
+  
+  .section {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .section h3::after {
+    width: 50px;
+  }
+  
+  .pictureSection {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .pictureSection img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  input,
+  select {
+    padding: 0.875rem 1rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .submitBtn {
+    padding: 1.125rem 1.5rem;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .message {
+    padding: 0.875rem 1.25rem;
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  h2::after {
+    width: 80px;
+    height: 2px;
+  }
+  
+  .section {
+    padding: 1.25rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .section h3::after {
+    width: 40px;
+  }
+  
+  .pictureSection {
+    padding: 1.25rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .pictureSection img {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1rem;
+  }
+  
+  .form label {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  input,
+  select {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .submitBtn {
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+    margin-top: 1.5rem;
+  }
+  
+  .message {
+    padding: 0.75rem 1rem;
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+  }
 }

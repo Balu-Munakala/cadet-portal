@@ -1,210 +1,577 @@
 /*
- * Modern and responsive CSS for the Achievements Section.
- * Designed for a clean, card-based layout with subtle visual effects.
+ * Military-themed Achievements Section for admin portal.
+ * Designed with authority-level styling and professional military aesthetics.
  */
 
 .container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  font-family: 'Arial', sans-serif;
-  background-color: #f8f9fa;
-  box-sizing: border-box;
+  --primary-gold: #d4af37;
+  --dark-blue: #1a365d;
+  --dark-gray: #2d3748;
+  --light-gray: #f7fafc;
+  --white: #ffffff;
+  --text-dark: #2d3748;
+  --text-light: #718096;
+  --border-color: #e2e8f0;
+  --bg-light: #f8fafc;
+  --success-green: #38a169;
+  --error-red: #e53e3e;
+  --admin-accent: #2c5aa0;
+  --transition: 0.3s ease;
+  --border-radius: 12px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 2.5rem;
+  font-family: 'Inter', sans-serif;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  border: 2px solid var(--border-color);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--admin-accent), var(--primary-gold));
+}
+
+.container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  border-color: var(--admin-accent);
 }
 
 h2 {
-  color: #212529; /* Darker, more professional color */
-  font-size: 28px;
-  margin-bottom: 24px;
+  color: var(--text-dark);
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
   text-align: center;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--admin-accent), var(--primary-gold));
+  border-radius: 2px;
 }
 
 .sectionTitle {
-  margin-top: 40px;
-  margin-bottom: 24px;
-  color: #212529;
-  font-size: 24px;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  color: var(--text-dark);
+  font-size: 1.5rem;
   text-align: center;
-  font-weight: 600;
-  border-bottom: 2px solid #e9ecef;
-  padding-bottom: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.sectionTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 2px;
+  background: var(--admin-accent);
+  border-radius: 1px;
 }
 
 .message {
-  margin: 0 auto 20px;
-  padding: 12px;
-  border-radius: 8px;
-  max-width: 800px;
+  margin: 0 auto 2rem;
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  max-width: none;
   text-align: center;
-  font-size: 16px;
-  font-weight: 500;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .error {
-  background-color: #fcecec;
-  color: #c0392b;
+  background: rgba(229, 62, 62, 0.1);
+  color: var(--error-red);
+  border: 2px solid rgba(229, 62, 62, 0.3);
 }
 
 .success {
-  background-color: #e8f9f5;
-  color: #034d37;
+  background: rgba(56, 161, 105, 0.1);
+  color: var(--success-green);
+  border: 2px solid rgba(56, 161, 105, 0.3);
 }
 
 .form {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 24px;
-  max-width: 800px;
-  margin: 0 auto 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 3rem;
+  border: 2px solid var(--border-color);
+  box-shadow: var(--shadow);
+  transition: all var(--transition);
 }
 
-.field {
-  margin-bottom: 20px;
+.form:hover {
+  border-color: var(--admin-accent);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
-.field label {
+.form label {
   display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #495057;
-}
-
-.field input[type="text"],
-.field textarea {
-  width: 100%;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  padding: 12px;
-  font-size: 16px;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.field input[type="text"]:focus,
-.field textarea:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-.field input[type="file"] {
-  font-size: 16px;
-}
-
-.submitBtn {
-  background-color: #007bff; /* Primary button color */
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 16px;
+  margin-bottom: 0.75rem;
   font-weight: 600;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  resize: vertical;
+  box-sizing: border-box;
+  margin-bottom: 1.5rem;
+  transition: all var(--transition);
+  background: var(--white);
+  color: var(--text-dark);
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+}
+
+.form input:focus,
+.form textarea:focus {
+  border-color: var(--admin-accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+}
+
+.form button {
+  background: var(--admin-accent);
+  color: var(--white);
+  border: 2px solid var(--admin-accent);
+  padding: 1.25rem 2rem;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
   cursor: pointer;
-  display: block;
-  margin: 0 auto;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
-}
-
-.submitBtn:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
-}
-
-.submitBtn:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
-  margin-bottom: 40px;
-}
-
-.card {
-  background-color: #fff;
-  border-radius: 12px;
+  width: 100%;
+  transition: all var(--transition);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow);
+  position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Inter', sans-serif;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+.form button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.form button:hover::before {
+  left: 100%;
+}
+
+.form button:hover {
+  background: var(--primary-gold);
+  border-color: var(--primary-gold);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.form button:disabled {
+  background: var(--text-light);
+  border-color: var(--text-light);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  opacity: 0.6;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.achievementCard {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: all var(--transition);
+  border: 2px solid var(--border-color);
+  position: relative;
+}
+
+.achievementCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--admin-accent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.achievementCard:hover::before {
+  opacity: 1;
+}
+
+.achievementCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-color: var(--admin-accent);
 }
 
 .cardImage {
   width: 100%;
-  object-fit: cover;
   height: 200px;
-  transition: transform 0.3s ease;
+  object-fit: cover;
+  transition: all var(--transition);
 }
 
-.card:hover .cardImage {
+.cardImage:hover {
   transform: scale(1.05);
 }
 
-.cardBody {
-  padding: 16px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.cardContent {
+  padding: 2rem;
 }
 
 .cardTitle {
-  margin: 0 0 8px;
-  font-size: 20px;
-  color: #343a40;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.cardDesc {
-  flex: 1;
-  margin: 0 0 12px;
-  font-size: 14px;
-  color: #6c757d;
-  line-height: 1.4;
+.cardDescription {
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
 }
 
-.cardDate {
-  font-size: 12px;
-  color: #adb5bd;
-  margin-top: auto;
-  font-style: italic;
+.cardActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
 }
 
 .deleteBtn {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
+  background: var(--error-red);
+  color: var(--white);
+  border: 2px solid var(--error-red);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  align-self: flex-start;
-  margin-top: 10px;
+  transition: all var(--transition);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Inter', sans-serif;
 }
 
 .deleteBtn:hover {
-  background-color: #c82333;
-  transform: translateY(-1px);
+  background: #c53030;
+  border-color: #c53030;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(197, 48, 48, 0.3);
 }
 
+.loadingText,
 .noData {
   text-align: center;
+  color: var(--text-light);
+  padding: 3rem 2rem;
   font-style: italic;
-  color: #888;
-  padding: 2rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--bg-light);
+  border-radius: var(--border-radius);
+  border: 2px dashed var(--border-color);
+  margin: 2rem 0;
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--admin-accent);
+  position: relative;
+}
+
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--admin-accent), var(--primary-gold));
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.modalTitle {
+  color: var(--text-dark);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--text-light);
+  transition: all var(--transition);
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+.closeBtn:hover {
+  color: var(--error-red);
+  background: rgba(229, 62, 62, 0.1);
+}
+
+.modalImage {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+  border: 2px solid var(--border-color);
+}
+
+.modalDescription {
+  color: var(--text-dark);
+  line-height: 1.7;
+  font-size: 1.05rem;
+  font-weight: 500;
+  text-align: justify;
+}
+
+/* ================== Responsive Design ================== */
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
+  }
+  
+  h2::after {
+    width: 100px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.3rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .sectionTitle::after {
+    width: 60px;
+  }
+  
+  .form {
+    padding: 2rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .form input,
+  .form textarea {
+    padding: 0.875rem 1rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .form button {
+    padding: 1.125rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .list {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .cardContent {
+    padding: 1.5rem;
+  }
+  
+  .cardActions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .deleteBtn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.85rem;
+  }
+  
+  .modal {
+    padding: 2rem 1.5rem;
+    width: 95%;
+  }
+  
+  .modalTitle {
+    font-size: 1.3rem;
+  }
+  
+  .closeBtn {
+    font-size: 1.5rem;
+    padding: 0.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  h2::after {
+    width: 80px;
+    height: 2px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .form {
+    padding: 1.5rem 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .form input,
+  .form textarea {
+    padding: 0.75rem 0.875rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .form button {
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+  }
+  
+  .cardContent {
+    padding: 1.25rem 1rem;
+  }
+  
+  .cardTitle {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .cardDescription {
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+  }
+  
+  .deleteBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .modal {
+    padding: 1.5rem 1rem;
+    width: 95%;
+  }
+  
+  .modalTitle {
+    font-size: 1.2rem;
+  }
+  
+  .modalDescription {
+    font-size: 1rem;
+  }
+  
+  .message {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.95rem;
+  }
 }

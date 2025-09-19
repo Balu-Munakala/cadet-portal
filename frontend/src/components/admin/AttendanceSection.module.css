@@ -1,7 +1,25 @@
 /*
- * Modern and responsive CSS for the Admin Attendance Dashboard.
- * Designed for a clean, card-based layout with a professional aesthetic.
+ * Military-themed Admin Attendance Dashboard
+ * Professional authority-level styling with admin accent colors
+ * Optimized for performance and responsive design
  */
+
+/* ================== CSS Variables ================== */
+:root {
+  --primary-navy: #1a365d;
+  --primary-gold: #d4af37;
+  --admin-accent: #2c5aa0;
+  --white: #ffffff;
+  --bg-light: #f8fafc;
+  --text-dark: #2d3748;
+  --text-light: #4a5568;
+  --border-color: #e2e8f0;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --border-radius: 12px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --success-green: #38a169;
+  --error-red: #e53e3e;
+}
 
 .page {
   display: flex;
@@ -9,54 +27,171 @@
   align-items: center;
   min-height: 100vh;
   width: 100%;
-  background-color: #f5f7fa; /* Light, modern background */
+  background: linear-gradient(135deg, var(--primary-navy) 0%, #2c5aa0 50%, var(--primary-gold) 100%);
+  background-attachment: fixed;
+  padding: 1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .container {
   text-align: center;
-  background: #ffffff;
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
-  max-width: 500px;
+  background: linear-gradient(135deg, var(--white) 0%, var(--bg-light) 100%);
+  padding: 3rem 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  max-width: 600px;
   width: 100%;
+  border: 2px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--admin-accent), var(--primary-gold));
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .heading {
-  color: #212529; /* A darker, more professional color */
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 2.5rem;
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--admin-accent), var(--primary-gold));
+  border-radius: 2px;
 }
 
 .buttonContainer {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  background-color: #007bff; /* Primary button color */
-  color: #ffffff;
+  gap: 1rem;
+  background: linear-gradient(135deg, var(--admin-accent), #1e4a7a);
+  color: var(--white);
   font-size: 1.125rem;
-  padding: 1rem 2rem;
+  font-weight: 600;
+  padding: 1.25rem 2.5rem;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+  transition: var(--transition);
+  box-shadow: 0 6px 20px rgba(44, 90, 160, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
 }
 
 .button:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px); /* Subtle lift on hover */
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(44, 90, 160, 0.4);
+  border-color: var(--primary-gold);
+}
+
+.button:active {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.button:hover::before {
+  left: 100%;
 }
 
 .icon {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+  transition: var(--transition);
+}
+
+.button:hover .icon {
+  transform: scale(1.1);
+  color: var(--primary-gold);
+}
+
+/* ================== Responsive Design ================== */
+@media (max-width: 768px) {
+  .page {
+    padding: 0.5rem;
+  }
+
+  .container {
+    padding: 2rem 1.5rem;
+    max-width: 100%;
+  }
+
+  .heading {
+    font-size: 1.875rem;
+    margin-bottom: 2rem;
+  }
+
+  .buttonContainer {
+    gap: 1.25rem;
+  }
+
+  .button {
+    font-size: 1rem;
+    padding: 1rem 2rem;
+  }
+
+  .icon {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+
+  .heading {
+    font-size: 1.5rem;
+  }
+
+  .button {
+    font-size: 0.95rem;
+    padding: 0.875rem 1.5rem;
+  }
+
+  .icon {
+    font-size: 1.125rem;
+  }
 }

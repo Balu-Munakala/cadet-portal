@@ -1,128 +1,266 @@
 /*
- * Modern and responsive CSS for the Achievements Section.
- * Designed for a clean, card-based layout with subtle visual effects.
+ * Military-themed Achievements Section for cadet portal users.
+ * Designed for seamless integration with user dashboard layout.
  */
 
 .container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  font-family: 'Arial', sans-serif;
-  background-color: #f8f9fa;
-  box-sizing: border-box;
+  --primary-gold: #d4af37;
+  --dark-blue: #1a365d;
+  --dark-gray: #2d3748;
+  --light-gray: #f7fafc;
+  --white: #ffffff;
+  --text-dark: #2d3748;
+  --text-light: #718096;
+  --border-color: #e2e8f0;
+  --success-green: #38a169;
+  --error-red: #e53e3e;
+  --transition: 0.2s ease;
+  --border-radius: 12px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(145deg, var(--light-gray) 0%, #ffffff 100%);
+  border-radius: var(--border-radius);
+  border: 2px solid var(--border-color);
+  box-shadow: var(--shadow);
+  height: calc(100vh - 200px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 h2 {
   text-align: center;
-  color: #212529; /* Darker, more professional color */
-  font-size: 28px;
-  margin-bottom: 24px;
-  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--primary-gold);
+  padding-bottom: 0.5rem;
+  flex-shrink: 0;
 }
 
 .message {
-  margin: 0 auto 20px;
-  padding: 12px;
-  border-radius: 8px;
-  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  max-width: none;
   text-align: center;
-  font-size: 16px;
-  font-weight: 500;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
 }
 
 .error {
-  background-color: #fcecec;
-  color: #c0392b;
+  background: rgba(229, 62, 62, 0.1);
+  color: var(--error-red);
+  border: 2px solid rgba(229, 62, 62, 0.3);
 }
 
 .info {
-  background-color: #e8f9f5;
-  color: #034d37;
+  background: rgba(56, 161, 105, 0.1);
+  color: var(--success-green);
+  border: 2px solid rgba(56, 161, 105, 0.3);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 24px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  
+  /* Hide scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.grid::-webkit-scrollbar {
+  display: none;
 }
 
 .card {
-  background-color: #fff;
-  border-radius: 12px;
+  background: var(--white);
+  border-radius: var(--border-radius);
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* More pronounced shadow for depth */
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all var(--transition);
+  border: 1px solid var(--border-color);
+  height: fit-content;
 }
 
 .card:hover {
-  transform: translateY(-5px); /* Subtle lift on hover */
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-color: var(--primary-gold);
 }
 
 .cardImage {
   width: 100%;
   object-fit: cover;
   height: 180px;
-  transition: transform 0.3s ease;
+  transition: all var(--transition);
+  border-bottom: 2px solid var(--primary-gold);
 }
 
 .card:hover .cardImage {
-  transform: scale(1.05); /* Slight zoom on image hover */
+  transform: scale(1.03);
 }
 
 .cardBody {
-  padding: 16px;
+  padding: 1.5rem;
   flex: 1;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(145deg, var(--white) 0%, #f8fafc 100%);
 }
 
 .cardTitle {
-  margin: 0 0 8px;
-  font-size: 20px;
-  color: #333;
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  color: var(--text-dark);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
 }
 
 .cardDesc {
   flex: 1;
-  margin: 0 0 12px;
-  font-size: 14px;
-  color: #666;
-  line-height: 1.4;
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.5;
+  font-weight: 500;
 }
 
 .cardDate {
-  font-size: 12px;
-  color: #999;
+  font-size: 0.8rem;
+  color: var(--text-light);
   margin-top: auto;
-  font-style: italic;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
 }
 
 .refreshBtn {
-  background-color: #007bff; /* A clean blue for the refresh button */
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  background: var(--primary-gold);
+  color: var(--white);
+  padding: 1rem 2rem;
+  border: 2px solid var(--primary-gold);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   display: block;
   margin: 0 auto;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
+  transition: all var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow);
+  flex-shrink: 0;
 }
 
 .refreshBtn:hover {
-  background-color: #0056b3;
+  background: var(--dark-blue);
+  border-color: var(--dark-blue);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .refreshBtn:disabled {
-  background-color: #cccccc;
+  background: var(--text-light);
+  border-color: var(--text-light);
   cursor: not-allowed;
   box-shadow: none;
+  transform: none;
+  opacity: 0.6;
+}
+
+/* ================== Loading and Empty States ================== */
+.container p {
+  text-align: center;
+  color: var(--text-light);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 2rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ================== Responsive Design ================== */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+    height: calc(100vh - 250px);
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .cardBody {
+    padding: 1rem;
+  }
+  
+  .cardTitle {
+    font-size: 1.1rem;
+  }
+  
+  .refreshBtn {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+    height: calc(100vh - 280px);
+  }
+  
+  h2 {
+    font-size: 1.3rem;
+  }
+  
+  .cardImage {
+    height: 140px;
+  }
+  
+  .cardBody {
+    padding: 0.875rem;
+  }
+  
+  .cardTitle {
+    font-size: 1rem;
+  }
+  
+  .cardDesc {
+    font-size: 0.85rem;
+  }
+  
+  .refreshBtn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
 }

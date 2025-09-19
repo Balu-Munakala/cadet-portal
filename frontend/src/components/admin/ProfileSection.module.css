@@ -1,76 +1,153 @@
 /*
- * Modern and responsive CSS for the Admin Profile Section.
- * Designed for a sleek, card-based layout with a professional, dark aesthetic.
+ * Military-themed Admin Profile Section for cadet portal.
+ * Professional authority-level styling with admin accent colors
+ * Optimized for performance and responsive design
  */
+
+/* ================== CSS Variables ================== */
+:root {
+  --primary-navy: #1a365d;
+  --primary-gold: #d4af37;
+  --admin-accent: #2c5aa0;
+  --white: #ffffff;
+  --bg-light: #f8fafc;
+  --text-dark: #2d3748;
+  --text-light: #4a5568;
+  --border-color: #e2e8f0;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --border-radius: 12px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --success-green: #38a169;
+  --error-red: #e53e3e;
+}
 
 .container {
   max-width: 900px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: #1a1a1a;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-  font-family: 'Segoe UI', sans-serif;
-  color: #e0e0e0;
+  margin: 2.5rem auto;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, var(--white) 0%, var(--bg-light) 100%);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  border: 2px solid var(--border-color);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--admin-accent), var(--primary-gold));
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 h2 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  color: #00ffcc;
-  text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+  color: var(--text-dark);
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--admin-accent), var(--primary-gold));
+  border-radius: 2px;
 }
 
 .profileCard {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  padding: 2rem;
+  background: rgba(44, 90, 160, 0.05);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(44, 90, 160, 0.1);
 }
 
 .profilePic {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  border: 3px solid #00ffcc;
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+  border: 4px solid var(--admin-accent);
+  box-shadow: 0 6px 20px rgba(44, 90, 160, 0.3);
   object-fit: cover;
   cursor: pointer;
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
+  margin-bottom: 1.5rem;
+  transition: var(--transition);
 }
 
 .profilePic:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(0, 255, 204, 0.6);
+  box-shadow: 0 10px 30px rgba(44, 90, 160, 0.4);
+  border-color: var(--primary-gold);
 }
 
 .uploadBtn {
-  background-color: #00ffcc;
-  color: #121212;
+  background: linear-gradient(135deg, var(--admin-accent), #1e4a7a);
+  color: var(--white);
   border: none;
-  padding: 0.6rem 1.5rem;
-  border-radius: 6px;
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--border-radius);
   cursor: pointer;
   font-size: 0.95rem;
   font-weight: 600;
-  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
+  position: relative;
+  overflow: hidden;
 }
 
 .uploadBtn:hover:not(:disabled) {
-  background-color: #00e6b8;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 255, 204, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(44, 90, 160, 0.4);
+}
+
+.uploadBtn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 10px rgba(44, 90, 160, 0.3);
+}
+
+.uploadBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.uploadBtn:hover:not(:disabled)::before {
+  left: 100%;
 }
 
 .uploadBtn:disabled {
-  background-color: #555;
-  color: #999;
+  background: linear-gradient(135deg, var(--text-light), #4a5568);
+  color: rgba(255, 255, 255, 0.6);
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
+  box-shadow: 0 2px 8px rgba(74, 85, 104, 0.2);
 }
 
 .form {
@@ -85,9 +162,12 @@ h2 {
 }
 
 .label {
-  font-weight: 500;
-  color: #ccc;
-  margin-bottom: 0.25rem;
+  font-weight: 700;
+  color: var(--admin-accent);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-size: 0.95rem;
 }
 
 .grid {
@@ -105,59 +185,97 @@ h2 {
 .form input,
 .form textarea,
 .form select {
-  background-color: #0a0a0a;
-  color: #00ffcc;
-  border: 1px solid #00ffcc;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
+  background: var(--white);
+  color: var(--text-dark);
+  border: 2px solid var(--border-color);
+  padding: 1rem 1.25rem;
+  border-radius: var(--border-radius);
   font-size: 1rem;
-  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: var(--transition);
+  outline: none;
 }
 
 .form input:focus,
 .form textarea:focus,
 .form select:focus {
-  outline: none;
-  box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+  transform: translateY(-2px);
+}
+
+.form input:hover,
+.form textarea:hover,
+.form select:hover {
+  border-color: var(--admin-accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form textarea {
   resize: vertical;
+  min-height: 120px;
 }
 
 .form input[readonly] {
-  background-color: #222;
-  color: #999;
+  background: var(--bg-light);
+  color: var(--text-light);
   cursor: not-allowed;
-  border-color: #333;
+  border-color: var(--border-color);
   box-shadow: none;
+  transform: none;
 }
 
 .submitBtn {
-  background-color: #00ffcc;
-  color: #121212;
-  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, var(--admin-accent), #1e4a7a);
+  color: var(--white);
+  padding: 1rem 2rem;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  margin-top: 1rem;
-  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 1.5rem;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
+  position: relative;
+  overflow: hidden;
 }
 
 .submitBtn:hover:not(:disabled) {
-  background-color: #00e6b8;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 255, 204, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(44, 90, 160, 0.4);
+}
+
+.submitBtn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 10px rgba(44, 90, 160, 0.3);
+}
+
+.submitBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.submitBtn:hover:not(:disabled)::before {
+  left: 100%;
 }
 
 .submitBtn:disabled {
-  background-color: #555;
-  color: #999;
+  background: linear-gradient(135deg, var(--text-light), #4a5568);
+  color: rgba(255, 255, 255, 0.6);
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
+  box-shadow: 0 2px 8px rgba(74, 85, 104, 0.2);
 }
 
 .hiddenInput {
@@ -166,21 +284,72 @@ h2 {
 
 .message {
   margin-top: 1.5rem;
-  font-weight: bold;
+  font-weight: 600;
   text-align: center;
-  padding: 0.75rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow);
 }
 
 .success {
-  color: #28a745;
-  background-color: rgba(40, 167, 69, 0.15);
-  border: 1px solid #28a745;
+  color: var(--success-green);
+  background: rgba(56, 161, 105, 0.1);
+  border: 2px solid rgba(56, 161, 105, 0.3);
 }
 
 .error {
-  color: #ff6347;
-  background-color: rgba(255, 99, 71, 0.15);
-  border: 1px solid #ff6347;
+  color: var(--error-red);
+  background: rgba(229, 62, 62, 0.1);
+  border: 2px solid rgba(229, 62, 62, 0.3);
+}
+
+/* ================== Responsive Design ================== */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+    margin: 1.5rem auto;
+  }
+
+  h2 {
+    font-size: 1.875rem;
+  }
+
+  .profileCard {
+    padding: 1.5rem;
+  }
+
+  .profilePic {
+    width: 120px;
+    height: 120px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .submitBtn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .profileCard {
+    padding: 1rem;
+  }
+
+  .profilePic {
+    width: 100px;
+    height: 100px;
+  }
 }

@@ -1,97 +1,305 @@
 /*
- * Modern and elegant CSS for the User Profile section on the Dashboard.
- * Focuses on a clean, card-based layout with refined typography and subtle effects.
+ * Military-themed User Dashboard Profile section for cadet portal.
+ * Designed for seamless integration with user dashboard layout.
  */
 
 .profileContainer {
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
+  --primary-gold: #d4af37;
+  --dark-blue: #1a365d;
+  --dark-gray: #2d3748;
+  --light-gray: #f7fafc;
+  --white: #ffffff;
+  --text-dark: #2d3748;
+  --text-light: #718096;
+  --border-color: #e2e8f0;
+  --bg-light: #f8fafc;
+  --success-green: #38a169;
+  --error-red: #e53e3e;
+  --transition: 0.3s ease;
+  --border-radius: 12px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  width: 100%;
+  max-width: 800px;
+  margin: 0;
+  padding: 2.5rem;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  border: 2px solid var(--border-color);
+  box-shadow: var(--shadow);
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.profileContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-gold), #b8860b);
+}
+
+.profileContainer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  border-color: var(--primary-gold);
+}
+
+.profileContainer h1 {
+  font-size: 2rem;
+  color: var(--text-dark);
+  margin: 0 0 2rem 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.profileContainer h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-gold), #b8860b);
+  border-radius: 2px;
+}
+
+.profileHeader {
+  margin-bottom: 2.5rem;
+  padding: 2rem 0;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+  border-radius: var(--border-radius);
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  position: relative;
 }
 
 .profileHeader img {
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #007bff; /* Changed to a clean blue accent */
-  margin-bottom: 20px;
-  transition: transform 0.3s ease;
+  border: 4px solid var(--primary-gold);
+  margin-bottom: 1.5rem;
+  transition: all var(--transition);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+  position: relative;
+  z-index: 2;
 }
 
 .profileHeader img:hover {
   transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+  border-color: #b8860b;
 }
 
 .profileHeader h2 {
-  font-size: 26px; /* Slightly larger for emphasis */
-  color: #212529; /* A darker, more professional black */
+  font-size: 1.75rem;
+  color: var(--text-dark);
   margin: 0;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .profileDetails {
-  margin-top: 25px;
-  padding: 0 20px;
+  margin: 2.5rem 0;
+  padding: 0;
   text-align: left;
+  display: grid;
+  gap: 1.5rem;
 }
 
 .profileDetails p {
-  margin: 15px 0;
-  font-size: 16px;
-  color: #555;
-  line-height: 1.5;
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  line-height: 1.6;
+  font-weight: 500;
+  padding: 1.25rem 1.5rem;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--primary-gold);
+  box-shadow: var(--shadow);
+  transition: all var(--transition);
+  position: relative;
+}
+
+.profileDetails p:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-left-color: #b8860b;
 }
 
 .profileDetails strong {
-  color: #343a40; /* Darker color for labels */
-  font-weight: 600;
-  min-width: 80px; /* Aligns labels nicely */
+  color: var(--primary-gold);
+  font-weight: 700;
+  min-width: 120px;
   display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.95rem;
 }
 
 .profileBtn {
   display: block;
   width: 100%;
-  padding: 14px;
-  margin: 15px 0;
-  background-color: #007bff; /* Primary button color */
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
+  padding: 1.25rem 1.5rem;
+  margin: 1rem 0;
+  background: var(--primary-gold);
+  color: var(--white);
+  border: 2px solid var(--primary-gold);
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
   text-align: center;
   text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+  transition: all var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+.profileBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.profileBtn:hover::before {
+  left: 100%;
 }
 
 .profileBtn:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px); /* Subtle lift on hover */
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  background: var(--dark-blue);
+  border-color: var(--dark-blue);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(26, 54, 93, 0.4);
+  color: var(--white);
+}
+
+.profileBtn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3);
 }
 
 /* Icon styling */
 .profileBtn i {
-  margin-right: 8px;
+  margin-right: 0.75rem;
+  font-size: 1.1rem;
 }
 
-/* Responsive adjustments */
-@media (max-width: 576px) {
+/* ================== Responsive Design ================== */
+@media (max-width: 768px) {
   .profileContainer {
-    margin: 20px auto;
-    padding: 20px;
+    padding: 2rem 1.5rem;
+    margin: 0;
   }
-
+  
+  .profileContainer h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .profileHeader {
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+  }
+  
   .profileHeader img {
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
+  }
+  
+  .profileHeader h2 {
+    font-size: 1.5rem;
+  }
+  
+  .profileDetails {
+    margin: 2rem 0;
+    gap: 1.25rem;
+  }
+  
+  .profileDetails p {
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+  }
+  
+  .profileBtn {
+    padding: 1.125rem 1.25rem;
+    font-size: 1rem;
+    margin: 0.75rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .profileContainer {
+    padding: 1.5rem 1rem;
+  }
+  
+  .profileContainer h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .profileHeader {
+    padding: 1.25rem 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .profileHeader img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .profileHeader h2 {
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .profileDetails {
+    margin: 1.5rem 0;
+    gap: 1rem;
+  }
+  
+  .profileDetails p {
+    padding: 0.875rem 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .profileDetails strong {
+    min-width: 100px;
+    font-size: 0.9rem;
+  }
+  
+  .profileBtn {
+    padding: 1rem 1.125rem;
+    font-size: 0.95rem;
+    margin: 0.625rem 0;
+    letter-spacing: 0.5px;
+  }
+  
+  .profileBtn i {
+    margin-right: 0.5rem;
+    font-size: 1rem;
   }
 }
