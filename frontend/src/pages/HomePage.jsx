@@ -3,10 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import styles from './HomePage.module.css';
 
 const HomePage = ({ apiBaseUrl }) => {
-  const [activeForm, setActiveForm] = useState(null); // 'login' | 'register'
+  const [activeForm, setActiveForm] = useState(null); // 'login' | 'register' | 'reset'
   const [formType, setFormType] = useState('user');  // 'user' | 'admin'
+  const [resetStep, setResetStep] = useState(1); // 1: email, 2: otp, 3: new password
   const [anoList, setAnoList] = useState([]);
   const [loginData, setLoginData] = useState({ identifier: '', password: '' });
+  const [resetData, setResetData] = useState({
+    email: '',
+    userType: 'user',
+    otp: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
   const [registerData, setRegisterData] = useState({
     name: '',
     email: '',
@@ -122,6 +130,108 @@ const HomePage = ({ apiBaseUrl }) => {
     }
   };
 
+  const handlePasswordReset = async (e) => {
+    e.preventDefault();
+    setMessage('');
+
+    if (resetStep === 1) {
+      // Request OTP
+      try {
+        const res = await fetch(`${apiBaseUrl}/password-reset/request`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            email: resetData.email,
+            userType: resetData.userType
+          })
+        });
+        
+        const data = await res.json();
+        if (res.ok) {
+          setMessage('✅ OTP sent to your email!');
+          setResetStep(2);
+        } else {
+          setMessage(data.message || 'Failed to send OTP');
+        }
+      } catch (error) {
+        setMessage('Server error. Try again later.');
+      }
+    } else if (resetStep === 2) {
+      // Verify OTP
+      try {
+        const res = await fetch(`${apiBaseUrl}/password-reset/verify-otp`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            email: resetData.email,
+            otp: resetData.otp,
+            userType: resetData.userType
+          })
+        });
+        
+        const data = await res.json();
+        if (res.ok) {
+          setMessage('✅ OTP verified! Enter new password.');
+          setResetStep(3);
+        } else {
+          setMessage(data.message || 'Invalid OTP');
+        }
+      } catch (error) {
+        setMessage('Server error. Try again later.');
+      }
+    } else if (resetStep === 3) {
+      // Reset password
+      if (resetData.newPassword !== resetData.confirmPassword) {
+        setMessage('❌ Passwords do not match!');
+        return;
+      }
+
+      try {
+        const res = await fetch(`${apiBaseUrl}/password-reset/reset`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            email: resetData.email,
+            otp: resetData.otp,
+            newPassword: resetData.newPassword,
+            userType: resetData.userType
+          })
+        });
+        
+        const data = await res.json();
+        if (res.ok) {
+          setMessage('✅ Password reset successfully!');
+          setTimeout(() => {
+            setActiveForm('login');
+            setResetStep(1);
+            setResetData({
+              email: '',
+              userType: 'user',
+              otp: '',
+              newPassword: '',
+              confirmPassword: ''
+            });
+          }, 2000);
+        } else {
+          setMessage(data.message || 'Failed to reset password');
+        }
+      } catch (error) {
+        setMessage('Server error. Try again later.');
+      }
+    }
+  };
+
+  const handleResetInputChange = (e) => {
+    const { name, value } = e.target;
+    setResetData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setRegisterData(prev => ({
@@ -159,6 +269,26 @@ const HomePage = ({ apiBaseUrl }) => {
           >
             {activeForm === 'register' ? 'Close' : 'Register'}
           </button>
+          <button
+            className={styles.textButton}
+            onClick={() => {
+              if (activeForm === 'reset') {
+                setActiveForm(null);
+                setResetStep(1);
+                setResetData({
+                  email: '',
+                  userType: 'user',
+                  otp: '',
+                  newPassword: '',
+                  confirmPassword: ''
+                });
+              } else {
+                setActiveForm('reset');
+              }
+            }}
+          >
+            {activeForm === 'reset' ? 'Close' : 'Reset Password'}
+          </button>
         </div>
       </div>
 
@@ -194,6 +324,109 @@ const HomePage = ({ apiBaseUrl }) => {
                   required
                 />
                 <button type="submit" className={styles.loginBtn}>Login</button>
+                <button
+                  type="button"
+                  className={styles.forgotPasswordBtn}
+                  onClick={() => setActiveForm('reset')}
+                >
+                  Forgot Password?
+                </button>
+              </form>
+              {message && <p className={styles.errorMessage}>{message}</p>}
+            </div>
+          </div>
+        )}
+
+        {activeForm === 'reset' && (
+          <div className={styles.loginContainer}>
+            <div className={styles.loginBox}>
+              <h3 className={styles.resetTitle}>
+                {resetStep === 1 && 'Reset Password - Enter Email'}
+                {resetStep === 2 && 'Reset Password - Enter OTP'}
+                {resetStep === 3 && 'Reset Password - New Password'}
+              </h3>
+
+              <form onSubmit={handlePasswordReset}>
+                {resetStep === 1 && (
+                  <>
+                    <select
+                      name="userType"
+                      value={resetData.userType}
+                      onChange={handleResetInputChange}
+                      required
+                    >
+                      <option value="user">User</option>
+                      <option value="admin">Admin</option>
+                      <option value="master">Master</option>
+                    </select>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Enter your email address"
+                      value={resetData.email}
+                      onChange={handleResetInputChange}
+                      required
+                    />
+                    <button type="submit" className={styles.loginBtn}>
+                      Send OTP
+                    </button>
+                  </>
+                )}
+
+                {resetStep === 2 && (
+                  <>
+                    <input
+                      type="text"
+                      name="otp"
+                      placeholder="Enter 6-digit OTP"
+                      value={resetData.otp}
+                      onChange={handleResetInputChange}
+                      maxLength="6"
+                      required
+                    />
+                    <button type="submit" className={styles.loginBtn}>
+                      Verify OTP
+                    </button>
+                    <button
+                      type="button"
+                      className={styles.backBtn}
+                      onClick={() => setResetStep(1)}
+                    >
+                      Back
+                    </button>
+                  </>
+                )}
+
+                {resetStep === 3 && (
+                  <>
+                    <input
+                      type="password"
+                      name="newPassword"
+                      placeholder="Enter new password"
+                      value={resetData.newPassword}
+                      onChange={handleResetInputChange}
+                      required
+                    />
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="Confirm new password"
+                      value={resetData.confirmPassword}
+                      onChange={handleResetInputChange}
+                      required
+                    />
+                    <button type="submit" className={styles.loginBtn}>
+                      Reset Password
+                    </button>
+                    <button
+                      type="button"
+                      className={styles.backBtn}
+                      onClick={() => setResetStep(2)}
+                    >
+                      Back
+                    </button>
+                  </>
+                )}
               </form>
               {message && <p className={styles.errorMessage}>{message}</p>}
             </div>
