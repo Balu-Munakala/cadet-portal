@@ -6,7 +6,8 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const { Pool } = require('pg');
 
-dotenv.config();
+// Load environment variables from the backend directory .env file
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 // PostgreSQL connection pool using DATABASE_URL from Render
 const pool = new Pool({
@@ -46,6 +47,7 @@ app.use('/uploads', express.static('uploads'));
 
 // Main API routes
 app.use('/auth', require('./routes/auth'));
+app.use('/password-reset', require('./routes/passwordReset'));
 app.use('/api/users', require('./routes/user'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/master', require('./routes/master'));
