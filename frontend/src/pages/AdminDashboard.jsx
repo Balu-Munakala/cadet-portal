@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 import DashboardSection from '../components/admin/DashboardSection';
 import ProfileSection from '../components/admin/ProfileSection';
-import AchievementsSection from '../components/admin/AchievementsSection';
-import AttendanceSection from '../components/admin/AttendanceSection';
-import EventsSection from '../components/admin/EventsSection';
 import FallinDetailsSection from '../components/admin/FallinDetailsSection';
+import EventsSection from '../components/admin/EventsSection';
+import AttendanceSection from '../components/admin/AttendanceSection';
+import AchievementsSection from '../components/admin/AchievementsSection';
 import ChangePasswordSection from '../components/ChangePasswordSection';
 import ManageUsersSection from '../components/admin/ManageUsersSection';
 import AdminReportsSection from '../components/admin/AdminReportsSection';

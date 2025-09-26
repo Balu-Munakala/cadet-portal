@@ -5,10 +5,10 @@ import { FaSignOutAlt } from 'react-icons/fa';
 
 import DashboardSection from '../components/user/DashboardSection';
 import ProfileSection from '../components/user/ProfileSection';
+import FallinDetailsSection from '../components/user/FallinDetailsSection';
 import AchievementsSection from '../components/user/AchievementsSection';
 import AttendanceSection from '../components/user/AttendanceSection';
 import EventsSection from '../components/user/EventsSection';
-import FallinDetailsSection from '../components/user/FallinDetailsSection';
 import ChangePasswordSection from '../components/ChangePasswordSection';
 import NotificationsSection from '../components/user/NotificationsSection';
 import ContactUsSection from '../components/user/ContactUsSection';
