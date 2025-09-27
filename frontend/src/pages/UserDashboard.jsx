@@ -12,6 +12,7 @@ import EventsSection from '../components/user/EventsSection';
 import ChangePasswordSection from '../components/ChangePasswordSection';
 import NotificationsSection from '../components/user/NotificationsSection';
 import ContactUsSection from '../components/user/ContactUsSection';
+import SessionTimer from '../components/SessionTimer';
 
 const UserDashboard = ({ apiBaseUrl }) => {
   const [user, setUser] = useState(null);
@@ -106,6 +107,16 @@ const UserDashboard = ({ apiBaseUrl }) => {
     }
   };
 
+  const handleSessionExpired = () => {
+    setShowModal({
+      message: 'Your session has expired. You will be redirected to the login page.',
+      onConfirm: () => {
+        localStorage.removeItem('sessionStart');
+        navigate('/');
+      }
+    });
+  };
+
   return (
     <div className={`${styles.dashboard} ${sidebarOpen ? styles.sidebarOpen : ''}`}>
       <header className={styles.header}>
@@ -114,9 +125,12 @@ const UserDashboard = ({ apiBaseUrl }) => {
           <img src="/logo.png" alt="NCC" className={styles.logo} />
         </div>
         <h1 className={styles.headerTitle}>NCC Cadet Dashboard</h1>
-        <button className={styles.logoutBtn} onClick={handleLogout}>
-          <FaSignOutAlt size={20} />
-        </button>
+        <div className={styles.headerRight}>
+          <SessionTimer onSessionExpired={handleSessionExpired} />
+          <button className={styles.logoutBtn} onClick={handleLogout}>
+            <FaSignOutAlt size={20} />
+          </button>
+        </div>
       </header>
       <div className={styles.mainContainer}>
         {sidebarOpen && (
@@ -124,10 +138,10 @@ const UserDashboard = ({ apiBaseUrl }) => {
             <h2>Welcome,<br />{user?.name}</h2>
             <button onClick={() => setCurrentSection('dashboard')}>Dashboard</button>
             <button onClick={() => setCurrentSection('profile')}>Profile</button>
-            <button onClick={() => setCurrentSection('achievements')}>Achievements</button>
-            <button onClick={() => setCurrentSection('attendance')}>Attendance</button>
-            <button onClick={() => setCurrentSection('events')}>Events</button>
             <button onClick={() => setCurrentSection('fallin')}>Fallin Details</button>
+            <button onClick={() => setCurrentSection('events')}>Events</button>
+            <button onClick={() => setCurrentSection('attendance')}>Attendance</button>
+            <button onClick={() => setCurrentSection('achievements')}>Achievements</button>
             <button onClick={() => setCurrentSection('changePassword')}>Change Password</button>
             <button onClick={() => setCurrentSection('notifications')}>Notifications</button>
             <button onClick={() => setCurrentSection('contactUs')}>Contact Support</button>

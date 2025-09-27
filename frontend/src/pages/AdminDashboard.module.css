@@ -59,6 +59,12 @@
   gap: 1rem;
 }
 
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .logo {
   height: 45px;
   width: auto;
@@ -70,7 +76,7 @@
 }
 
 .headerTitle {
-  color: var(--white);
+  color: var(--primary-gold);
   margin: 0;
   font-size: 1.5rem;
   font-weight: 700;

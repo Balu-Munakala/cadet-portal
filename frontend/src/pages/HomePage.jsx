@@ -69,6 +69,8 @@ const HomePage = ({ apiBaseUrl }) => {
       
       const data = await res.json();
       if (res.ok) {
+        // Initialize session timer
+        localStorage.setItem('sessionStart', Date.now().toString());
         navigate(data.redirect);
       } else {
         setMessage(data.msg || data.message || 'Invalid credentials.');

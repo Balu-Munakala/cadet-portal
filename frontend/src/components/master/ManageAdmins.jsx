@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './ManageAdmins.module.css';
 import { FaUserEdit } from 'react-icons/fa';
 
-export default function ManageAdmins({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
+export default function ManageAdmins({ apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'}) {
   const [admins, setAdmins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

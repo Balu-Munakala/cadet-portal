@@ -2,11 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ProfileSection.module.css';
 
-const ProfileSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
-  const [formData, setFormData] = useState({});
+const ProfileSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'}) => {
+  const [formData, setFormData] = useState({
+    // Basic Information
+    regimental_number: '',
+    dob: '',
+    mother_name: '',
+    father_name: '',
+    parent_phone: '',
+    parent_email: '',
+    address: '',
+    
+    // Academic Information
+    wing: '',
+    category: '',
+    current_year: '',
+    institution_name: '',
+    studying: '',
+    year_class: '',
+    
+    // Additional Information
+    dietary_preference: '',
+    blood_group: ''
+  });
   const [profilePic, setProfilePic] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [message, setMessage] = useState({ type: '', text: '' });
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -54,26 +76,41 @@ const ProfileSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
 
   const handleProfilePicChange = e => {
     const file = e.target.files[0];
-    setSelectedFile(file);
     if (file) {
-      setProfilePic(URL.createObjectURL(file));
+      // Check file size (max 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        setMessage({ type: 'error', text: 'Image too large. Please use an image smaller than 2MB.' });
+        return;
+      }
+      
+      // Convert to Base64
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64 = event.target.result;
+        setSelectedFile(base64);
+        setProfilePic(base64);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   const uploadProfilePic = async () => {
-    if (!selectedFile) return;
-    const picData = new FormData();
-    picData.append('profile_pic', selectedFile);
+    if (!selectedFile) return true;
 
     try {
       const res = await fetch(`${apiBaseUrl}/api/users/upload-profile-pic`, {
         method: 'POST',
-        body: picData,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          profilePicBase64: selectedFile
+        }),
         credentials: 'include'
       });
       const result = await res.json();
       if (!result.success) {
-        setMessage({ type: 'error', text: 'Failed to upload picture' });
+        setMessage({ type: 'error', text: result.msg || 'Failed to upload picture' });
         return false;
       }
       return true;
@@ -87,6 +124,7 @@ const ProfileSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
   const handleSubmit = async e => {
     e.preventDefault();
     setMessage({ type: '', text: '' });
+    setIsLoading(true);
 
     try {
       // First, upload the new profile picture if a file was selected
@@ -106,6 +144,7 @@ const ProfileSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
         const data = await res.json();
         if (data.success) {
           setMessage({ type: 'success', text: 'Profile updated successfully!' });
+          setSelectedFile(null);
           // Refresh profile data after successful update
           fetchProfileData();
         } else {
@@ -115,6 +154,8 @@ const ProfileSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
     } catch (err) {
       console.error(err);
       setMessage({ type: 'error', text: 'Error updating profile.' });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -192,6 +233,7 @@ const ProfileSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
 
           <label>Wing</label>
           <select name="wing" value={formData.wing || ''} onChange={handleInputChange}>
+            <option value="">Select Wing</option>
             <option value="army">Army</option>
             <option value="navy">Navy</option>
             <option value="air-force">Air Force</option>
@@ -199,6 +241,7 @@ const ProfileSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
 
           <label>Category</label>
           <select name="category" value={formData.category || ''} onChange={handleInputChange}>
+            <option value="">Select Category</option>
             <option value="SD">SD</option>
             <option value="SW">SW</option>
             <option value="JD">JD</option>
@@ -213,6 +256,7 @@ const ProfileSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
 
           <label>Current Year</label>
           <select name="current_year" value={formData.current_year || ''} onChange={handleInputChange}>
+            <option value="">Select Year</option>
             <option value="A1">A1</option>
             <option value="A2">A2</option>
             <option value="B1">B1</option>
@@ -228,6 +272,7 @@ const ProfileSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
 
           <label>Studying</label>
           <select name="studying" value={formData.studying || ''} onChange={handleInputChange}>
+            <option value="">Select Level</option>
             <option value="school">School</option>
             <option value="intermediate">Intermediate</option>
             <option value="ug">Undergraduate</option>
@@ -236,13 +281,41 @@ const ProfileSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
 
           <label>Year/Class</label>
           <select name="year_class" value={formData.year_class || ''} onChange={handleInputChange}>
+            <option value="">Select Year/Class</option>
             {updateYearClassOptions().map(opt => (
               <option key={opt} value={opt}>{opt}</option>
             ))}
           </select>
         </div>
 
-        <button type="submit" className={styles.submitBtn}>Update Profile</button>
+        <div className={styles.section}>
+          <h3>Additional Information</h3>
+          <label>Dietary Preference</label>
+          <select name="dietary_preference" value={formData.dietary_preference || ''} onChange={handleInputChange}>
+            <option value="">Select Preference</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="non-vegetarian">Non-Vegetarian</option>
+            <option value="vegan">Vegan</option>
+            <option value="jain">Jain</option>
+          </select>
+
+          <label>Blood Group</label>
+          <select name="blood_group" value={formData.blood_group || ''} onChange={handleInputChange}>
+            <option value="">Select Blood Group</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+          </select>
+        </div>
+
+        <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+          {isLoading ? 'Updating...' : 'Update Profile'}
+        </button>
       </form>
       {message.text && (
         <div className={`${styles.message} ${message.type === 'error' ? styles.error : styles.success}`}>

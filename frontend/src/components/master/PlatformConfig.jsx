@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './PlatformConfig.module.css';
 
-export default function PlatformConfig({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
+export default function PlatformConfig({ apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'}) {
   const [config, setConfig] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './SystemReports.module.css';
 
-export default function SystemReports({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
+export default function SystemReports({ apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'}) {
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

@@ -13,6 +13,8 @@ import PlatformConfig from '../components/master/PlatformConfig';
 import SupportQueries from '../components/master/SupportQueries';
 import SystemLogs from '../components/master/SystemLogs';
 import SystemReports from '../components/master/SystemReports';
+import MasterNominalRollGenerator from '../components/master/MasterNominalRollGenerator';
+import SessionTimer from '../components/SessionTimer';
 
 const MasterDashboard = ({ apiBaseUrl }) => {
   const [master, setMaster] = useState(null);
@@ -106,9 +108,21 @@ const MasterDashboard = ({ apiBaseUrl }) => {
         return <SystemLogs user={master} />;
       case 'SystemReports':
         return <SystemReports user={master} />;
+      case 'MasterNominalRoll':
+        return <MasterNominalRollGenerator apiBaseUrl={apiBaseUrl} />;
       default:
         return <div className={styles.loading}>Section under construction.</div>;
     }
+  };
+
+  const handleSessionExpired = () => {
+    setShowModal({
+      message: 'Your session has expired. You will be redirected to the login page.',
+      onConfirm: () => {
+        localStorage.removeItem('sessionStart');
+        navigate('/');
+      }
+    });
   };
 
   return (
@@ -119,7 +133,10 @@ const MasterDashboard = ({ apiBaseUrl }) => {
           <img src="/logo.png" alt="Logo" className={styles.logo} />
         </div>
         <h1 className={styles.headerTitle}>Master Control Panel</h1>
-        <button className={styles.logoutBtn} onClick={handleLogout}><FaSignOutAlt size={20} /></button>
+        <div className={styles.headerRight}>
+          <SessionTimer onSessionExpired={handleSessionExpired} />
+          <button className={styles.logoutBtn} onClick={handleLogout}><FaSignOutAlt size={20} /></button>
+        </div>
       </header>
 
       <div className={styles.mainContainer}>
@@ -132,6 +149,7 @@ const MasterDashboard = ({ apiBaseUrl }) => {
             <button onClick={() => setSection('dashboard')}>Dashboard</button>
             <button onClick={() => setSection('ProfileSection')}>Profile</button>
             <button onClick={() => setSection('GlobalSearch')}>Global Search</button>
+            <button onClick={() => setSection('MasterNominalRoll')}>Master Nominal Roll</button>
             <button onClick={() => setSection('ManageAdmins')}>Manage Admins</button>
             <button onClick={() => setSection('ManageUsers')}>Manage Users</button>
             <button onClick={() => setSection('NotificationManager')}>Notifications</button>

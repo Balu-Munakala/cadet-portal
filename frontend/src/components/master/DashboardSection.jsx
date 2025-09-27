@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaUsers, FaUserShield, FaChartPie, FaBell } from 'react-icons/fa';
 import styles from './DashboardSection.module.css';
 
-const MasterDashboardSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL}) => {
+const MasterDashboardSection = ({ apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'}) => {
   const [profile, setProfile] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const [picUrl, setPicUrl] = useState('/default.jpg');

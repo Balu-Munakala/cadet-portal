@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './EventsSection.module.css';
 
-export default function UserEventsSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
+export default function UserEventsSection({ apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'}) {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null); // { type: 'error'|'info', text: '' }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import styles from './FallinDetailsSection.module.css';
 
-export default function FallinDetailsSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
+export default function FallinDetailsSection({ apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'}) {
   const [fallins, setFallins] = useState([]);
   const [formData, setFormData] = useState({
     fallin_id: '',

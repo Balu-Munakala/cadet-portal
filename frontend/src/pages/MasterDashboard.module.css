@@ -1,6 +1,16 @@
 /* Premium Military-themed CSS for Master Admin Dashboard */
 
-/* ================== CSS Variables ================== */
+/* =============.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+} CSS Variables ================== */
 .dashboard {
   --primary-gold: #d4af37;
   --rich-gold: #b8860b;
@@ -102,17 +112,13 @@
 }
 
 .headerTitle {
-  color: var(--white);
+  color: var(--primary-gold);
   margin: 0;
   font-size: 1.75rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(45deg, var(--white), var(--primary-gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .headerRight {

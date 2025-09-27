@@ -14,6 +14,8 @@ import ManageUsersSection from '../components/admin/ManageUsersSection';
 import AdminReportsSection from '../components/admin/AdminReportsSection';
 import NotificationsSection from '../components/NotificationsSection';
 import SupportQueriesSection from '../components/admin/SupportQueriesSection';
+import NominalRollGenerator from '../components/admin/NominalRollGenerator';
+import SessionTimer from '../components/SessionTimer';
 
 // This component now accepts apiBaseUrl as a prop
 const AdminDashboard = ({ apiBaseUrl }) => {
@@ -21,6 +23,7 @@ const AdminDashboard = ({ apiBaseUrl }) => {
   const [section, setSection] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showModal, setShowModal] = useState(null);
 
   // useNavigate is the modern way to handle programmatic navigation in React Router v6
   const navigate = useNavigate();
@@ -82,8 +85,19 @@ const AdminDashboard = ({ apiBaseUrl }) => {
       case 'adminReports':      return <AdminReportsSection user={admin}/>;
       case 'notifications':     return <NotificationsSection user={admin}/>;
       case 'supportQueries':    return <SupportQueriesSection user={admin}/>;
+      case 'nominalRoll':       return <NominalRollGenerator apiBaseUrl={apiBaseUrl} />;
       default:                  return <p>Section under construction.</p>;
     }
+  };
+
+  const handleSessionExpired = () => {
+    setShowModal({
+      message: 'Your session has expired. You will be redirected to the login page.',
+      onConfirm: () => {
+        localStorage.removeItem('sessionStart');
+        navigate('/');
+      }
+    });
   };
 
   return (
@@ -95,8 +109,11 @@ const AdminDashboard = ({ apiBaseUrl }) => {
           <img src="/logo.png" alt="Logo" className={styles.logo} /> 
         </div>
         <h1 className={styles.headerTitle}>NCC ANO Dashboard</h1>
-        <button className={styles.logoutBtn} onClick={handleLogout}
-        ><FaSignOutAlt size={20}/></button>
+        <div className={styles.headerRight}>
+          <SessionTimer onSessionExpired={handleSessionExpired} />
+          <button className={styles.logoutBtn} onClick={handleLogout}
+          ><FaSignOutAlt size={20}/></button>
+        </div>
       </header>
 
       <div className={styles.mainContainer}>
@@ -105,15 +122,15 @@ const AdminDashboard = ({ apiBaseUrl }) => {
             <h2>Welcome,<br/>{admin?.name || 'Admin'}</h2>
             <button onClick={() => setSection('dashboard')}>Dashboard</button>
             <button onClick={() => setSection('profile')}>Profile</button>
-            <button onClick={() => setSection('achievements')}>Achievements</button>
-            <button onClick={() => setSection('attendance')}>Attendance</button>
-            <button onClick={() => setSection('events')}>Events</button>
             <button onClick={() => setSection('fallin')}>Fallin Details</button>
-            <button onClick={() => setSection('changePassword')}>Change Password</button>
+            <button onClick={() => setSection('events')}>Events</button>
+            <button onClick={() => setSection('attendance')}>Attendance</button>
+            <button onClick={() => setSection('achievements')}>Achievements</button>
             <button onClick={() => setSection('manageUsers')}>Manage Users</button>
             <button onClick={() => setSection('adminReports')}>Admin Reports</button>
             <button onClick={() => setSection('notifications')}>Notifications</button>
             <button onClick={() => setSection('supportQueries')}>Support Queries</button>
+            <button onClick={() => setSection('nominalRoll')}>📄 Generate Nominal Roll</button>
           </aside>
         )}
 
@@ -129,6 +146,17 @@ const AdminDashboard = ({ apiBaseUrl }) => {
             <div className={styles.modalActions}>
               <button onClick={() => setShowLogoutModal(false)}>Cancel</button>
               <button onClick={confirmLogout}>Log Out</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showModal && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal}>
+            <p>{showModal.message}</p>
+            <div className={styles.modalActions}>
+              <button onClick={showModal.onConfirm}>OK</button>
             </div>
           </div>
         </div>

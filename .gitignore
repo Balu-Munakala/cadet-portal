@@ -1,1 +1,7 @@
 .env
+
+# Documentation files
+*.md
+!README.md
+frontend/NOMINAL_ROLL_*.md
+frontend/MASTER_NOMINAL_ROLL_*.md

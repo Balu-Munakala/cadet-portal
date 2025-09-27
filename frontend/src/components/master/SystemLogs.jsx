@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './SystemLogs.module.css';
 
-export default function SystemLogs({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
+export default function SystemLogs({ apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'}) {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

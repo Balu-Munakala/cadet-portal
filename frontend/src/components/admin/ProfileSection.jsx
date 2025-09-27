@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './ProfileSection.module.css';
 
-export default function ProfileSection({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
+export default function ProfileSection({ apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'}) {
   const [profile, setProfile] = useState({});
   const [picUrl, setPicUrl] = useState('/default.jpg');
   const fileInput = useRef(null);
@@ -33,8 +33,12 @@ export default function ProfileSection({ apiBaseUrl = process.env.REACT_APP_API_
         });
 
         if (picRes.ok) {
-          const picBlob = await picRes.blob();
-          setPicUrl(URL.createObjectURL(picBlob));
+          const picData = await picRes.json();
+          if (picData.success && picData.profile_pic_base64) {
+            setPicUrl(picData.profile_pic_base64);
+          } else {
+            setPicUrl('/default.jpg');
+          }
         } else {
           setPicUrl('/default.jpg');
         }
@@ -58,31 +62,58 @@ export default function ProfileSection({ apiBaseUrl = process.env.REACT_APP_API_
     const file = e.target.files[0];
     if (!file) return;
 
+    // Validate file size (2MB limit)
+    if (file.size > 2 * 1024 * 1024) {
+      setMessage({ type: 'error', text: 'Profile picture must be less than 2MB' });
+      return;
+    }
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      setMessage({ type: 'error', text: 'Please select a valid image file' });
+      return;
+    }
+
     setLoading(true);
     setMessage({ type: '', text: '' });
 
-    const formData = new FormData();
-    formData.append('profile_pic', file);
-
-    try {
-      const res = await fetch(`${apiBaseUrl}/api/admin/upload-profile-pic`, {
-        method: 'POST',
-        credentials: 'include',
-        body: formData,
-      });
-      const data = await res.json();
-      if (res.ok && data.success) {
-        setPicUrl(URL.createObjectURL(file));
-        setMessage({ type: 'success', text: 'Picture uploaded successfully!' });
-      } else {
-        setMessage({ type: 'error', text: data.msg || 'Upload failed.' });
+    // Convert to Base64
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const base64String = event.target.result;
+      
+      try {
+        const res = await fetch(`${apiBaseUrl}/api/admin/upload-profile-pic`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            profilePicBase64: base64String
+          }),
+          credentials: 'include'
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          setPicUrl(base64String);
+          setMessage({ type: 'success', text: 'Picture uploaded successfully!' });
+        } else {
+          setMessage({ type: 'error', text: data.msg || 'Upload failed.' });
+        }
+      } catch (err) {
+        console.error('[Upload Profile Pic Error]', err);
+        setMessage({ type: 'error', text: 'Error uploading picture.' });
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      console.error('[Upload Profile Pic Error]', err);
-      setMessage({ type: 'error', text: 'Error uploading picture.' });
-    } finally {
+    };
+    
+    reader.onerror = () => {
+      setMessage({ type: 'error', text: 'Error reading file' });
       setLoading(false);
-    }
+    };
+    
+    reader.readAsDataURL(file);
   };
 
   const handleSubmit = e => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ViewAttendance.module.css';
 
-export default function ViewAttendance({ apiBaseUrl = process.env.REACT_APP_API_URL}) {
+export default function ViewAttendance({ apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'}) {
   const [fallins, setFallins] = useState([]);
   const [selectedFallinId, setSelectedFallinId] = useState('');
   const [attendanceRecords, setAttendanceRecords] = useState([]);
